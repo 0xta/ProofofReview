@@ -28,7 +28,7 @@
 | 7 | **$TASTE Daily Mining Emission** | ระบบปล่อยเหรียญ Reward กลางวันละ **10,000 $TASTE** แบ่งตามสัดส่วน (Pro-rata) ของคะแนนรีวิวในแต่ละวัน รองรับทั้ง Auto Settlement และ Admin Manual Distribution สำหรับ Demo PoC |
 | 8 | **Merchant $TASTE Bounty & Token Shop** | ร้านค้าสามารถซื้อ $TASTE ด้วย AVAX และนำมาฝากตั้งแคมเปญกระตุ้นยอดขาย (เช่น 100,000 $TASTE) เพื่อจ่ายตรงให้ผู้รีวิว |
 | 9 | **Circular Spend Sinks (Promotions)** | ร้านค้าตั้งสิทธิพิเศษรับแลก $TASTE (199 $TASTE แลกเมนูฟรี, 500 $TASTE รับส่วนลด 15%) เหรียญหมุนกลับเข้าร้าน 80%, Burn ทิ้ง 20% เพื่อคุมเงินเฟ้อ |
-| 10 | **1-Click Judge Demo Mode** | Faucet แจก 0.1 Fuji AVAX อัตโนมัติ พร้อม Burner Wallet ให้กรรมการทดสอบได้ทันทีใน 2 วินาที |
+| 10 | **1-Click Judge Demo Mode** | Faucet แจกทั้ง **0.1 Fuji AVAX** (ค่าแก๊ส) และ **10,000 $TASTE** (Platform Token) อัตโนมัติ พร้อม Burner Wallet ให้กรรมการทดสอบได้ทันทีใน 2 วินาที ทั้งส่งรีวิว, แลก Voucher, และทดลองสร้างแคมเปญ Bounty / Promotion Event ด้วยตนเอง |
 
 ---
 
@@ -1073,7 +1073,7 @@ sequenceDiagram
 | **Owner Portal (KYC, Edit, QR, Tokens, Bounty)**| 🟢 Core | ระบบหลังบ้านร้านค้า ยืนยันสิทธิ์, ซื้อเหรียญ, ตั้งบาวน์ตี้ |
 | **Admin Portal (Monitor, Logs, Approve, Distribute)**| 🟢 Core | มอนิเตอร์, ตรวจ Logs, อนุมัติสิทธิ์, ปุ่มกดแจกเหรียญ PoC |
 | **Merchant Promotions (199 / 500 TASTE)** | 🟢 Core | แลกอาหารฟรี & ส่วนลด 15% พร้อม Burn 20% |
-| **⚡ 1-Click Judge Wallet** | 🟢 Core | Burner Wallet + Faucet 0.1 Fuji AVAX |
+| **⚡ 1-Click Judge Wallet** | 🟢 Core | Burner Wallet + Faucet 0.1 AVAX + 10,000 $TASTE |
 
 ---
 
@@ -1100,7 +1100,8 @@ NEXT_PUBLIC_PROMOTION_ESCROW_ADDRESS=0x...
 # ── Relayer & Faucet Wallets ──
 ORACLE_PRIVATE_KEY=0x...
 FAUCET_PRIVATE_KEY=0x...
-FAUCET_DRIP_AMOUNT=0.1
+FAUCET_DRIP_AVAX_AMOUNT=0.1
+FAUCET_DRIP_TASTE_AMOUNT=10000
 
 # ── AI APIs ──
 # 1. OpenAI (Slip OCR)

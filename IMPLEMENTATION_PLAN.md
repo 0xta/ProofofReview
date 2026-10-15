@@ -319,7 +319,8 @@ git push origin main
 - Build **Role Navigation Switcher** in Navbar: `[ 🍜 Customer ] [ 🏪 Owner ] [ 🛡️ Admin ]` for seamless evaluation.
 - Build **1-Click Judge Demo Mode**:
   - Auto-generate in-memory Burner Wallet.
-  - Faucet service auto-airdropping **0.1 Fuji AVAX** from reserve wallet.
+  - Faucet service auto-airdropping **0.1 Fuji AVAX** (ค่าแก๊ส) และ **10,000 $TASTE** (Platform Tokens) จากกระเป๋าสำรองส่วนกลาง
+  - ให้กรรมการมีโทเค็นพร้อมทดลองสร้างแคมเปญ Bounty (ฝากเหรียญ), ซื้อโปรโมชั่น, หรือแลก Voucher อาหารฟรีได้ทันที
   - Quick launcher to test pre-configured venues (*Ban That Thong* & *Ari*).
   - Pre-filled sample PromptPay slip & sample Shop QR for instant testing.
 - Polish DaisyUI Dark & Coffee theme visuals across all pages.
@@ -327,24 +328,25 @@ git push origin main
 
 #### Deliverables
 - `src/components/RoleSwitcher.tsx`: Navbar quick-switch between Customer, Owner, and Admin views.
-- `src/app/api/judge/faucet/route.ts`: Faucet API with rate limiter (0.1 AVAX drip).
-- `src/components/JudgeDemoButton.tsx`: 1-Click burner wallet setup.
+- `src/app/api/judge/faucet/route.ts`: Faucet API delivering 0.1 AVAX + 10,000 $TASTE tokens in 1 request.
+- `src/components/JudgeDemoButton.tsx`: 1-Click burner wallet setup with dual AVAX + TASTE balance preview.
 - `src/data/seed-venues.ts`: Pre-seeded demo venues with active promotions, voices, and bounties.
 - `tests/e2e-demo.test.ts`: Full end-to-end journey test.
 
 #### Automated Verification & Test Strategy
 | Test Case | Description | Expected Result |
 | :--- | :--- | :--- |
-| **T6.1 Judge Faucet** | Click Judge Demo button | Burner wallet created, receives 0.1 AVAX in $< 3\text{s}$ |
+| **T6.1 Judge Faucet** | Click Judge Demo button | Burner wallet created, receives 0.1 AVAX + 10,000 $TASTE in $< 3\text{s}$ |
 | **T6.2 Role Switching** | Switch between Customer, Owner, and Admin | Screens transition seamlessly with role-appropriate permissions |
 | **T6.3 Full Journey** | Customer Review $\rightarrow$ Admin Approve Owner $\rightarrow$ Admin Distribute Token | Complete lifecycle completes without errors |
 | **T6.4 Mobile View** | View on mobile viewport | Zero horizontal overflow, responsive modals |
 
 #### User Interactive Checkpoint (ให้ผู้ใช้ทดลองใช้งาน)
-1. กดปุ่ม **"⚡ 1-Click Judge Demo"** ใน Navbar: ตรวจดูว่าสร้าง Burner Wallet และได้รับ 0.1 Fuji AVAX ในไม่กี่วินาที
-2. สลับ Role ผ่าน Role Switcher: ตรวจดูว่าสลับไปมาระหว่าง Customer, Owner, และ Admin ได้อย่างราบรื่น
-3. ทดลอง Full User Journey: สแกนร้าน $\rightarrow$ รีวิวรับ Pioneer 2x $\rightarrow$ แอดมินกดแจกเหรียญ $\rightarrow$ กดเคลมเหรียญ $\rightarrow$ แลก Voucher อาหารฟรี
-4. **จุดปรับปรุง:** ตรวจสอบความสวยงามของธีม สี และการแสดงผลบนจอมือถือ
+1. กดปุ่ม **"⚡ 1-Click Judge Demo"** ใน Navbar: ตรวจดูว่าสร้าง Burner Wallet และได้รับ **0.1 Fuji AVAX + 10,000 $TASTE** ทันทีในไม่กี่วินาที
+2. **ทดลองสร้าง Event ในฐานะ Owner ด้วยเหรียญที่ได้:** นำ 10,000 $TASTE ไปทดลองตั้ง Bounty Event หรือสร้างโปรโมชั่นแลกอาหาร
+3. **ทดลองแลก Voucher ในฐานะ Customer:** นำ 199 $TASTE ไปกดแลกอาหารฟรีเพื่อดูการ Burn เหรียญ 20%
+4. สลับ Role ผ่าน Role Switcher: ตรวจดูว่าสลับไปมาระหว่าง Customer, Owner, และ Admin ได้อย่างราบรื่น
+5. **จุดปรับปรุง:** ตรวจสอบความสวยงามของธีม สี และการแสดงผลบนจอมือถือ
 
 #### Changelog & Git Action
 ```bash
