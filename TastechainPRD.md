@@ -23,12 +23,13 @@
 | 2 | **Bangkok Only Scope** | Scope เฉพาะ `city = 'กรุงเทพมหานคร'` (41,581 OPERATIONAL venues, 36,369 F&B) |
 | 3 | **Proof of Review (2 Options)** | **Option 1 (Slip Proof):** GPS + รูปอาหารที่ทาน + ใบเสร็จการทานในมื้อนั้น (PromptPay Slip OCR ตรวจสอบความถูกต้องและป้องกันสลิปซ้ำ) + คะแนนรีวิวและข้อความ<br/>**Option 2 (Shop QR Proof):** GPS + รูปอาหารที่ทาน + สแกน Shop QR Code หน้าร้าน + คะแนนรีวิวและข้อความ (พร้อมเสียงทักทาย AI ขอบคุณจากร้านค้า) |
 | 4 | **ElevenLabs AI Shop Voices** | ร้านค้าสร้างเสียงทักทาย/ขอบคุณลูกค้าได้สูงสุด 3 รูปแบบ (อบอุ่น, เป็นกันเอง, แนะนำเมนู) ระบบสุ่ม 1 ใน 3 ส่งให้ลูกค้าฟังทันทีเมื่อสแกน Shop QR |
-| 5 | **Dedicated Role Dashboards & Home** | แยกหน้าจอสำหรับแต่ละ User Role ชัดเจน (`/explore` สำหรับ Customer, `/owner` สำหรับ Owner, `/admin` สำหรับ Admin) พร้อมหน้า **Home Page (`/`)** อธิบายความสามารถของแพลตฟอร์ม, User Flows, สถิติสด, และแนะนำ **Sponsors: ElevenLabs, Avalanche Chain, U-Topia, U-Bot, Tokenomist** |
-| 6 | **Pioneer 2x Multiplier** | ผู้ที่ได้เป็น Pioneer ของร้าน (3 คนแรกที่รีวิวผ่าน) ได้รับแต้มความพยายาม **เป็น 2 เท่า (2x Points Multiplier)** ในการรีวิวครั้งนั้นทันที (จบการคำนวณในรอบวัน โปร่งใส) |
-| 7 | **$TASTE Daily Mining Emission** | ระบบปล่อยเหรียญ Reward กลางวันละ **10,000 $TASTE** แบ่งตามสัดส่วน (Pro-rata) ของคะแนนรีวิวในแต่ละวัน รองรับทั้ง Auto Settlement และ Admin Manual Distribution สำหรับ Demo PoC |
-| 8 | **Merchant $TASTE Bounty & Token Shop** | ร้านค้าสามารถซื้อ $TASTE ด้วย AVAX และนำมาฝากตั้งแคมเปญกระตุ้นยอดขาย (เช่น 100,000 $TASTE) เพื่อจ่ายตรงให้ผู้รีวิว |
-| 9 | **Circular Spend Sinks (Promotions)** | ร้านค้าตั้งสิทธิพิเศษรับแลก $TASTE (199 $TASTE แลกเมนูฟรี, 500 $TASTE รับส่วนลด 15%) เหรียญหมุนกลับเข้าร้าน 80%, Burn ทิ้ง 20% เพื่อคุมเงินเฟ้อ |
-| 10 | **1-Click Judge Demo Mode** | Faucet แจกทั้ง **0.1 Fuji AVAX** (ค่าแก๊ส) และ **10,000 $TASTE** (Platform Token) อัตโนมัติ พร้อม Burner Wallet ให้กรรมการทดสอบได้ทันทีใน 2 วินาที ทั้งส่งรีวิว, แลก Voucher, และทดลองสร้างแคมเปญ Bounty / Promotion Event ด้วยตนเอง |
+| 5 | **Dedicated Role Dashboards & Home** | แยกหน้าจอสำหรับแต่ละ User Role ชัดเจน (`/explore` สำหรับ Customer, `/owner` สำหรับ Owner, `/admin` สำหรับ Admin) พร้อมหน้า **Home Page (`/`)** และหน้า **/judge** สำหรับกรรมการ |
+| 6 | **English-First International UI** | ออกแบบหน้า Home Page, Navbar, ปุ่มกด (Buttons), Interactive Sandbox, และหน้าจอทั้งหมดเป็น **ภาษาอังกฤษ (English-First UI)** เพื่อให้กรรมการระดับนานาชาติ (International Judges) ใช้งานได้อย่างราบรื่นและเป็นมืออาชีพ (คงชื่อร้านอาหารไทยและสคริปต์เสียง AI ควบคู่) |
+| 7 | **Pioneer 2x Multiplier** | ผู้ที่ได้เป็น Pioneer ของร้าน (3 คนแรกที่รีวิวผ่าน) ได้รับแต้มความพยายาม **เป็น 2 เท่า (2x Points Multiplier)** ในการรีวิวครั้งนั้นทันที (จบการคำนวณในรอบวัน โปร่งใส) |
+| 8 | **$TASTE Daily Mining Emission** | ระบบปล่อยเหรียญ Reward กลางวันละ **10,000 $TASTE** แบ่งตามสัดส่วน (Pro-rata) ของคะแนนรีวิวในแต่ละวัน รองรับทั้ง Auto Settlement และ Admin Manual Distribution สำหรับ Demo PoC |
+| 9 | **Merchant $TASTE Bounty & Token Shop** | ร้านค้าสามารถซื้อ $TASTE ด้วย AVAX และนำมาฝากตั้งแคมเปญกระตุ้นยอดขาย (เช่น 100,000 $TASTE) เพื่อจ่ายตรงให้ผู้รีวิว |
+| 10 | **Circular Spend Sinks (Promotions)** | ร้านค้าตั้งสิทธิพิเศษรับแลก $TASTE (199 $TASTE แลกเมนูฟรี, 500 $TASTE รับส่วนลด 15%) เหรียญหมุนกลับเข้าร้าน 80%, Burn ทิ้ง 20% เพื่อคุมเงินเฟ้อ |
+| 11 | **1-Click Judge Demo Mode** | Faucet แจกทั้ง **0.1 Fuji AVAX** (ค่าแก๊ส) และ **10,000 $TASTE** (Platform Token) อัตโนมัติ พร้อม Burner Wallet ให้กรรมการทดสอบได้ทันทีใน 2 วินาที ทั้งส่งรีวิว, แลก Voucher, และทดลองสร้างแคมเปญ Bounty / Promotion Event ด้วยตนเอง |
 
 ---
 
@@ -941,33 +942,33 @@ sequenceDiagram
 
 ### 8.2 Dedicated Role UI Layouts & Wireframes:
 
-#### A. Home Page (`/`): Platform Overview, Flows, Stats & Sponsors
+#### A. Home Page (`/`): Platform Overview, Flows, Stats & Sponsors (English-First UI)
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│  🍜 TasteChain BKK        [ 🍜 Customer ] [ 🏪 Owner ] [ 🛡️ Admin ]    │
+│  🍜 TasteChain BKK   [ 🍜 Explore ] [ 🏪 Owner ] [ 🛡️ Admin ] [ ⚖️ Judge ]│
 ├────────────────────────────────────────────────────────────────────────┤
 │  ⚡ The Trustless AI-Powered Gastronomy Protocol on Avalanche Fuji     │
-│  "เปลี่ยนทุกมื้ออาหารในกรุงเทพฯ ให้เป็นสินทรัพย์ดิจิทัลที่พิสูจน์ได้จริง"│
-│  [ 🔍 ค้นหาร้านอร่อย ]   [ 🏪 จัดการร้านค้า ]   [ ⚖️ คู่มือกรรมการ & 1-Click Tour (/judge) ]│
+│  "Transforming Bangkok's dining experiences into verifiable assets."   │
+│  [ 🔍 Explore 36K+ Venues ]  [ 🏪 Merchant Hub ]  [ ⚖️ Judge Tour (/judge) ]│
 ├────────────────────────────────────────────────────────────────────────┤
 │  📊 Live Protocol Statistics                                           │
 │  ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌───────────────┐  │
-│  │ 36,369+      │ │ 1,482        │ │ 10,000 $TASTE│ │ 24 Bounties   │  │
-│  │ ร้าน F&B กทม.│ │ รีวิว Verified│ │ แจกทุกเที่ยงคืน│ │ รวม 2.4M เหรียญ│ │
+│  │ 36,369+      │ │ 1,482        │ │ 10,000 $TASTE│ │ 24 Active     │  │
+│  │ BKK Venues   │ │ Verified Rvs │ │ Daily Pool   │ │ Bounties      │  │
 │  └──────────────┘ └──────────────┘ └──────────────┘ └───────────────┘  │
 ├────────────────────────────────────────────────────────────────────────┤
-│  🔄 Interactive User Flows (เลือกดูตาม Role)                           │
+│  🔄 Interactive User Flows (Select to Walkthrough)                     │
 │  [ 🍜 Customer Flow ]     [ 🏪 Owner Flow ]     [ 🛡️ Admin Flow ]      │
-│  • Step 1: กินอาหารที่ร้าน F&B ใน กทม. (เลือกร้านที่มีสัญลักษณ์ Bounty)   │
-│  • Step 2: เลือก Proof of Review: Option 1 (สลิป) หรือ Option 2 (Shop QR)│
-│  • Step 3: ฟังเสียงขอบคุณ AI ElevenLabs + ได้รับแต้มสะสมรายวันทันที    │
-│  • Step 4: เคลมเหรียญ $TASTE หรือนำไปแลกคูปองส่วนลด 15% / อาหารฟรี     │
+│  • Step 1: Discover Bangkok F&B venues with active $TASTE bounties     │
+│  • Step 2: Choose Proof of Review: Option 1 (Slip) or Option 2 (Shop QR)│
+│  • Step 3: Stream Thai ElevenLabs AI voice gratitude & earn 2x Pioneer │
+│  • Step 4: Claim $TASTE rewards from DB or redeem 199/500 vouchers     │
 ├────────────────────────────────────────────────────────────────────────┤
-│  🤝 Official Sponsors & Ecosystem Partners                             │
+│  🤝 5 Platform Sponsors & Partners                                     │
 │  ┌───────────────┬───────────────┬───────────────┬──────────────────┐  │
-│  │ 🔊 ElevenLabs │ 🔺 Avalanche  │ 🎮 U-Topia    │ 🤖 U-Bot /       │  │
-│  │ AI Voice Engine│ C-Chain Fuji  │ Web3 Lifestyle│ 📈 Tokenomist    │  │
-│  │ 3 เสียง/ร้านค้า │ Sub-second Tx │ & Gamification│ Dynamic Tokenomic│  │
+│  │ 🎮 U-Topia    │ 🔊 ElevenLabs │ 🔺 Avalanche  │ 🤖 U-Bot /       │  │
+│  │ Web3 Lifestyle│ AI Voice Thai │ C-Chain Fuji  │ 📈 Tokenomist    │  │
+│  │ & RWA Games   │ 3 Styles/Shop │ Sub-second Tx │ Dynamic 80/20 Burn│  │
 │  └───────────────┴───────────────┴───────────────┴──────────────────┘  │
 └────────────────────────────────────────────────────────────────────────┘
 ```
@@ -1042,44 +1043,44 @@ sequenceDiagram
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### E. Judge Guide & Interactive Sandbox Page (`/judge`):
+#### E. Judge Guide & Interactive Sandbox Page (`/judge` - English-First UI):
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
 │  ⚖️ TasteChain BKK — Evaluator & Judge Interactive Command Center      │
-│  คู่มือการประเมินและศูนย์ทดสอบฟังก์ชันด่วนสำหรับกรรมการ (Quick-Start Tour)   │
+│  "Quick-Start Evaluation Guide & Interactive Feature Sandbox"          │
 ├────────────────────────────────────────────────────────────────────────┤
-│  ⚡ ขั้นตอนที่ 1: รับกระเป๋าพร้อมเหรียญทดสอบ (Dual Faucet in 1-Click)  │
+│  ⚡ Step 1: 1-Click Burner Setup (Dual Faucet: 0.1 AVAX + 10,000 $TASTE)│
 │  ┌──────────────────────────────────────────────────────────────────┐  │
-│  │ [ 🚀 สร้าง Burner Wallet + รับ 0.1 AVAX & 10,000 $TASTE ]        │  │
-│  │ กระเป๋าของคุณ: 0x71...C9 (🟢 Ready) | ยอดเงิน: 0.1 AVAX | 10,000 TASTE │
+│  │ [ 🚀 Launch Burner Wallet + Claim 0.1 AVAX & 10,000 $TASTE ]     │  │
+│  │ Wallet: 0x71...C9 (🟢 Ready) | Balance: 0.1 AVAX | 10,000 $TASTE  │  │
 │  └──────────────────────────────────────────────────────────────────┘  │
 ├────────────────────────────────────────────────────────────────────────┤
-│  🧭 ขั้นตอนที่ 2: เลือกสถานีทดสอบตาม Role (Interactive Stations)       │
+│  🧭 Step 2: Interactive Role-Based Guided Tour                         │
 │                                                                        │
 │  [ 🍜 Station 1: Customer Flow ]                                       │
-│  • [ 🧾 1-Click ทดลองรีวิวสลิป PromptPay (OCR) ]                       │
-│    -> ยิง OpenAI Vision + บันทึก On-chain + รับ Pioneer 2x Multiplier  │
-│  • [ 🔊 1-Click ทดลองสแกน QR & ฟังเสียง AI ร้านค้า ]                   │
-│    -> สตรีมเสียง ElevenLabs AI ภาษาไทยต้อนรับ/ขอบคุณทันที              │
-│  • [ 🪙 1-Click กดเคลมเหรียญสะสมจาก DB ]                               │
-│    -> ดึงแต้มสะสมจาก Database มา Mint เหรียญเข้ากระเป๋าจริง            │
-│  • [ 🥟 1-Click แลกอาหารฟรี 199 $TASTE ]                               │
-│    -> โอน 80% เข้าร้านค้า + เผาทำลาย 20% บน Snowtrace + ได้รับ OTP     │
+│  • [ 🧾 1-Click Test PromptPay Slip OCR ]                              │
+│    -> Calls OpenAI Vision + Records On-chain + Awards Pioneer 2x Points│
+│  • [ 🔊 1-Click Test In-Store QR & Thai AI Voice ]                     │
+│    -> Verifies Geofence + Streams Thai ElevenLabs Voice Gratitude      │
+│  • [ 🪙 1-Click Claim Accumulated DB Rewards ]                         │
+│    -> Mints accrued rewards from PostgreSQL to Web3 Wallet             │
+│  • [ 🥟 1-Click Redeem 199 $TASTE Voucher ]                            │
+│    -> 80% to Merchant + 20% Deflationary Burn to 0x0...dEaD + OTP Code │
 │                                                                        │
 │  [ 🏪 Station 2: Owner Flow ]                                          │
-│  • [ 📑 1-Click ยื่นเอกสารขอสิทธิ์เจ้าของร้าน (KYC) ]                   │
-│  • [ 🔊 1-Click สังเคราะห์เสียง AI ทักทาย 3 รูปแบบ ]                   │
-│  • [ 💰 1-Click ฝาก 10,000 $TASTE ตั้งแคมเปญ Bounty ]                  │
+│  • [ 📑 1-Click Submit Mock Merchant KYC Claim ]                       │
+│  • [ 🔊 1-Click Preview 3 ElevenLabs AI Thai Voices ]                  │
+│  • [ 💰 1-Click Fund 10,000 $TASTE Bounty Escrow ]                     │
 │                                                                        │
 │  [ 🛡️ Station 3: Admin Flow ]                                          │
-│  • [ 📊 ส่องดู Live Metrics & Audit Logs ]                             │
-│  • [ ✅ 1-Click กดอนุมัติคำร้องเจ้าของร้าน (Owner Approve) ]           │
-│  • [ 🚀 1-Click สั่งแจกจ่ายเหรียญประจำวันทันที (Manual Distribute) ]   │
+│  • [ 📊 Inspect Real-time Metrics & Audit Logs ]                       │
+│  • [ ✅ 1-Click Approve Pending Merchant Claim ]                       │
+│  • [ 🚀 1-Click Manual Daily Token Distribution (PoC) ]                │
 ├────────────────────────────────────────────────────────────────────────┤
 │  📜 Verified Smart Contracts on Avalanche Fuji Testnet (43113)         │
-│  • TasteToken ($TASTE): 0x... [ ดูบน Snowtrace ↗ ]                     │
-│  • TasteDailyDistributor: 0x... [ ดูบน Snowtrace ↗ ]                   │
-│  • TastePromotionEscrow (Burn 20%): 0x... [ ดูบน Snowtrace ↗ ]        │
+│  • TasteToken ($TASTE): 0x... [ View on Snowtrace ↗ ]                  │
+│  • TasteDailyDistributor: 0x... [ View on Snowtrace ↗ ]                │
+│  • TastePromotionEscrow (Burn 20%): 0x... [ View on Snowtrace ↗ ]     │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
