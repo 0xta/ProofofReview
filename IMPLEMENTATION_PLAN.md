@@ -69,12 +69,16 @@ Every phase follows a strict 5-step lifecycle ensuring high software quality, us
   - Hero section explaining the Trustless Gastronomy Protocol.
   - Interactive User Flows selector for **3 Roles: Customer, Owner, Admin**.
   - Live Platform Statistics (36,369+ F&B places, verified reviews count, total $TASTE emission, active bounties).
+  - Prominent CTA Link to **Judge Guide & Interactive Tour (`/judge`)**.
   - **5 Platform Sponsors & Partners Section:**
     1. **U-Topia:** Web3 Entertainment, Gamification & Real-world Asset (RWA) Ecosystem
     2. **ElevenLabs:** Generative Voice AI สังเคราะห์เสียงต้อนรับและขอบคุณภาษาไทย 3 สไตล์ต่อร้าน
     3. **Avalanche C-Chain:** บล็อกเชนความเร็วสูง สำหรับ Smart Contracts, Escrow และ Micro-rewards
     4. **U-Bot:** Automated Web3 Trading & Social Community Intelligence Bot
     5. **Tokenomist:** ผู้ออกแบบกลไก Dynamic Tokenomics, 80/20 Burn และ Mining Emission
+- Implement **Judge Guide & Interactive Command Center Page (`/judge`)**:
+  - ศูนย์กลางคู่มือและสถานีทดลองฟังก์ชันสำหรับกรรมการ (Customer, Owner, Admin Sandbox)
+  - เชื่อมโยงกับปุ่มใน Navbar และ Home Page
 
 #### Deliverables
 - `package.json`, `tsconfig.json`, `tailwind.config.ts`, `postcss.config.js`
@@ -82,7 +86,8 @@ Every phase follows a strict 5-step lifecycle ensuring high software quality, us
 - `src/lib/services/places.ts`: Queries for Bangkok F&B places, pioneer slot status, and bounty flags.
 - `src/app/api/places/route.ts`: API endpoint supporting `q`, `service_type`, `rating_min`, `has_bounty`, `limit`, and `offset`.
 - `src/app/api/stats/route.ts`: Live platform statistics endpoint.
-- `src/app/page.tsx`: Home Page with Hero, User Flows walkthrough, Live stats, and 5 Sponsors.
+- `src/app/page.tsx`: Home Page with Hero, User Flows walkthrough, Live stats, /judge CTA, and 5 Sponsors.
+- `src/app/judge/page.tsx`: Dedicated Judge Guide & Interactive Sandbox Page.
 - `tests/phase1-places.test.ts`: Automated test suite for database queries, stats endpoint, and page rendering.
 
 #### Automated Verification & Test Strategy
