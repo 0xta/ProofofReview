@@ -135,7 +135,7 @@ export default function Navbar() {
 
   const navLinks = [
     { label: 'Explore Venues', href: '/', icon: Utensils },
-    { label: 'Customer', href: '/#customer-flow', icon: Award },
+    { label: 'Customer', href: '/customer', icon: Award },
     { label: 'Merchant Hub', href: '/owner', icon: Store },
     { label: 'Admin', href: '/admin', icon: ShieldCheck },
   ];

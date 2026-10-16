@@ -444,12 +444,13 @@ export default function HomePage() {
                       Test review submission or browse venues below to claim pioneer badges.
                     </p>
                   </div>
-                  <a
-                    href="#venues-explorer"
-                    className="mt-6 w-full py-2.5 rounded-xl text-xs font-bold text-center text-white bg-orange-500 hover:bg-orange-600 transition-colors"
+                  <Link
+                    href="/customer"
+                    className="mt-6 w-full py-2.5 rounded-xl text-xs font-bold text-center text-white bg-orange-500 hover:bg-orange-600 transition-colors flex items-center justify-center gap-1.5"
                   >
-                    Browse Bangkok Places
-                  </a>
+                    <span>Open Diner Portal</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
             </div>
