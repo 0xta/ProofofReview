@@ -103,3 +103,6 @@ export async function generateShopQRCode(params: {
     payload,
   };
 }
+
+export const generateDailyNonce = generateShopDailyNonce;
+export const verifyDailyNonce = verifyShopDailyNonce;

@@ -9,6 +9,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > **Network:** Avalanche C-Chain — Fuji Testnet (Chain ID: 43113)  
 > **Database:** PostgreSQL 17 (`tastechain` @ port 5432)
 
+## [v0.4.0-phase4] - 2026-10-16
+
+### Added
+- **2-Option Proof-of-Review Engine**:
+  - **Option 1 (Dining Receipt Slip OCR & Anti-Replay)**:
+    - AI-assisted receipt OCR parser (`src/lib/services/receipt-ocr.ts`) with OpenAI Vision integration and intelligent deterministic fallback.
+    - Computes standardized SHA-256 slip hash `0x` + `sha256(place_id:slip_reference:amount_thb)`.
+    - Strict anti-replay verification rejecting duplicate slip hashes already registered in `verified_reviews`.
+    - Perceptual hash (`pHash`) food photo fingerprinting preventing duplicate image reuse.
+    - Awards 10.0 base $TASTE (20.0 if Pioneer) + active AVAX visit bounties.
+  - **Option 2 (Shop Counter QR & Voice AI)**:
+    - Cryptographic daily nonce validation (`verifyDailyNonce`).
+    - Haversine physical GPS proximity check (&le; 100m).
+    - In-browser playback of venue's customized ElevenLabs Thai voice greeting upon submission.
+    - Awards 5.0 base $TASTE (10.0 if Pioneer).
+- **Pioneer 2x Multiplier & Royalty Rights**:
+  - Automatically identifies whether a Bangkok venue has &lt; 3 reviews.
+  - Grants Pioneer Slot 1, 2, or 3 with a **2x Token Multiplier** and logs claim in `pioneer_claims`.
+- **Asynchronous Reward Accumulation & 1-Click Web3 Claim**:
+  - Customer rewards service (`src/lib/services/rewards.ts`) accumulating review and check-in rewards in PostgreSQL `customer_claimable_rewards`.
+  - 1-Click batch claim payout engine (`POST /api/rewards/claim`):
+    - Settles pending $TASTE and AVAX balances to the customer's Web3 Burner Wallet.
+    - Atomic status update to `CLAIMED` with transaction hash and Avalanche Fuji Snowtrace explorer link.
+- **Tokenomist 80/20 Deflationary Voucher Redemption**:
+  - Voucher service (`src/lib/services/promotions.ts`) allowing diners to redeem active merchant discount vouchers.
+  - Enforces Tokenomist's deflationary economic model: **80% of $TASTE tokens are burned**, while **20% is transferred to the merchant**.
+  - Generates unique customer redemption codes (e.g. `TC-XXXX-XXXX`) stored in `promotion_redemptions`.
+- **Interactive Diner Customer Portal (`/customer`)**:
+  - Complete multi-tab user interface (`src/app/customer/page.tsx`):
+    - **Tab 1: Submit Proof-of-Review**: 43,649 venue search, Option 1 vs 2 switcher, GPS simulator, 1-click sample dish/receipt buttons, and reward celebration with audio playback.
+    - **Tab 2: My Rewards & Claim**: Live pending $TASTE and AVAX balances, 1-click Web3 claim button, and itemized reward history ledger.
+    - **Tab 3: Redeem Vouchers**: Active merchant discounts with real-time 80% burn calculations and redemption codes.
+- **Phase 4 Automated Verification Suite**:
+  - `tests/phase4-reviews-claim.test.ts` passing all 26 verification tests.
+
+---
+
 ## [v0.3.0-phase3] - 2026-10-16
 
 ### Added

@@ -38,3 +38,5 @@ export function isWithinVenueProximity(
     distanceMeters: distance,
   };
 }
+
+export const isWithinProximity = isWithinVenueProximity;
