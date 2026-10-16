@@ -9,6 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > **Network:** Avalanche C-Chain — Fuji Testnet (Chain ID: 43113)  
 > **Database:** PostgreSQL 17 (`tastechain` @ port 5432)
 
+## [v0.3.0-phase3] - 2026-10-16
+
+### Added
+- **ElevenLabs Thai Voice AI Studio**:
+  - Implemented 3 customizable vocal personas tailored for Bangkok eateries:
+    - **Slot 1 (Warm & Welcoming - อบอุ่น ต้อนรับ)**: Gentle tone ideal for family restaurants and cozy cafes (`Rachel` voice persona).
+    - **Slot 2 (Energetic & Casual - เป็นกันเอง สตรีทฟู้ด)**: Upbeat, friendly tone ideal for Bangkok street food stalls and quick bites (`Bella` voice persona).
+    - **Slot 3 (Chef & Signature Luxury - เชฟแนะนำ หรูหรา)**: Refined, prestigious tone for bistros, cocktail bars, and fine dining (`Domi` voice persona).
+  - Voice synthesis engine in `src/lib/services/elevenlabs.ts` supporting ElevenLabs Multilingual V2 API with automatic fallback mock generator creating valid WAV audio files.
+  - Interactive Voice Studio UI in `src/components/VoiceStudio.tsx` allowing restaurant owners to test audio playback, customize promotional greetings with dynamic venue interpolation, and track play counters.
+- **Dynamic Shop Counter QR Stand & Anti-Replay Nonce Engine**:
+  - Daily rotating cryptographic nonce generator in `src/lib/services/shop-qr.ts` (`generateDailyNonce` / `verifyDailyNonce`) preventing QR capture replay attacks across days.
+  - High-resolution SVG/PNG counter stand generator in `src/components/ShopQRStand.tsx` with printable layout, acrylic stand guide, live check-in simulator, and direct PNG download.
+  - Haversine GPS proximity validator in `src/lib/utils/gps.ts` enforcing physical presence within $\le 100\text{m}$ radius of the Bangkok eatery.
+- **In-Store Check-in Oracle & Reward Pipeline**:
+  - API endpoint `POST /api/checkin/qr` handling diner scan payloads: verifies GPS coordinates ($\le 100\text{m}$), validates rotating daily nonce, records check-in record in DB, selects active voice greeting, increments play count, and credits $3.00$ claimable reward points in `customer_claimable_rewards`.
+  - In-Store Diner Check-in Modal (`src/components/QRCheckinModal.tsx`) with HTML5 Audio synthesizer playback, reward notification, and GPS simulation controls.
+  - Full-featured Merchant Portal in `src/app/owner/page.tsx` with instant Bangkok venue search/switcher, Voice AI Studio tab, QR Stand generator tab, and Owner KYC verification status.
+- **Automated Verification Suite**:
+  - Automated test suite `tests/phase3-voice-qr.test.ts` verifying all 19 Phase 3 functional requirements (Thai voice personas, DB persistence, ElevenLabs audio synthesis, cryptographic nonce, QR code generation, Haversine GPS calculations, check-in persistence).
+
 ---
 
 ## [v0.2.0-phase2] - 2026-10-16

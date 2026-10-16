@@ -319,31 +319,31 @@ export default function JudgePage() {
                 <tr>
                   <td className="py-2.5 text-amber-400 font-bold">TasteToken ($TASTE)</td>
                   <td className="py-2.5 text-slate-300 font-sans">Ecosystem incentive & voucher settlement token</td>
-                  <td className="py-2.5 text-emerald-400 font-semibold">Ready / Deployed</td>
+                  <td className="py-2.5 text-emerald-400 font-semibold">Local Sandbox Verified</td>
                   <td className="py-2.5 text-slate-400">ERC-20 + Burnable + Minter</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 text-amber-400 font-bold">ProofOfReview</td>
                   <td className="py-2.5 text-slate-300 font-sans">Onchain verification, Pioneer 2x registry & Receipt anti-replay</td>
-                  <td className="py-2.5 text-emerald-400 font-semibold">Ready / Deployed</td>
+                  <td className="py-2.5 text-emerald-400 font-semibold">Local Sandbox Verified</td>
                   <td className="py-2.5 text-slate-400">Custom EVM Oracle</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 text-amber-400 font-bold">MerchantEscrow</td>
                   <td className="py-2.5 text-slate-300 font-sans">AVAX bounty escrow for diner visit incentives</td>
-                  <td className="py-2.5 text-emerald-400 font-semibold">Ready / Deployed</td>
+                  <td className="py-2.5 text-emerald-400 font-semibold">Local Sandbox Verified</td>
                   <td className="py-2.5 text-slate-400">Native AVAX Escrow</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 text-amber-400 font-bold">MerchantPromotions</td>
                   <td className="py-2.5 text-slate-300 font-sans">Voucher redemption with Tokenomist 80/20 deflationary burn</td>
-                  <td className="py-2.5 text-emerald-400 font-semibold">Ready / Deployed</td>
+                  <td className="py-2.5 text-emerald-400 font-semibold">Local Sandbox Verified</td>
                   <td className="py-2.5 text-slate-400">ERC-20 Settlement</td>
                 </tr>
                 <tr>
                   <td className="py-2.5 text-amber-400 font-bold">DailyEpochRewards</td>
                   <td className="py-2.5 text-slate-300 font-sans">Daily 10k $TASTE pool & 1-Click Admin PoC distribution</td>
-                  <td className="py-2.5 text-emerald-400 font-semibold">Ready / Deployed</td>
+                  <td className="py-2.5 text-emerald-400 font-semibold">Local Sandbox Verified</td>
                   <td className="py-2.5 text-slate-400">Pro-Rata Emission</td>
                 </tr>
               </tbody>
