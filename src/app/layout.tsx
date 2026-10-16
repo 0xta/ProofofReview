@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import RoleSwitcher from '@/components/RoleSwitcher';
 import Footer from '@/components/Footer';
 
 export const metadata: Metadata = {
@@ -30,6 +31,7 @@ export default function RootLayout({
       </head>
       <body className="bg-slate-950 text-slate-100 flex flex-col min-h-screen antialiased selection:bg-orange-500 selection:text-white">
         <Navbar />
+        <RoleSwitcher />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

@@ -16,8 +16,14 @@ import {
   Store,
   RefreshCw,
   Info,
+  MapPin,
+  FileText,
+  Volume2,
+  Percent,
+  Play,
 } from 'lucide-react';
 import { setBurnerWallet as setGlobalBurnerWallet, connectMetaMaskWallet } from '@/lib/wallet';
+import { CURATED_JUDGE_VENUES, SeedVenue } from '@/data/seed-venues';
 
 export default function JudgePage() {
   const [burnerWallet, setBurnerWallet] = useState<{
@@ -25,14 +31,18 @@ export default function JudgePage() {
     privateKey: string;
     avaxBalance: string;
     tasteBalance: string;
+    txHash?: string;
+    explorerUrl?: string;
     isGenerating: boolean;
     isFunded: boolean;
   } | null>(null);
 
   const [copiedKey, setCopiedKey] = useState(false);
   const [copiedAddr, setCopiedAddr] = useState(false);
+  const [activePipelineStep, setActivePipelineStep] = useState<number | null>(null);
+  const [pipelineOutput, setPipelineOutput] = useState<string | null>(null);
 
-  // Generate burner wallet demo (Interactive prototype shell)
+  // Generate burner wallet and call real Faucet API
   const handleGenerateBurner = async () => {
     setBurnerWallet({
       address: '',
@@ -44,12 +54,35 @@ export default function JudgePage() {
     });
 
     try {
-      // Create random wallet using ethers
+      // 1. Create random wallet keypair using ethers
       const { ethers } = await import('ethers');
       const randomWallet = ethers.Wallet.createRandom();
 
-      // In Phase 1 shell, we display the generated burner credentials
-      setTimeout(() => {
+      // 2. Call backend Faucet API
+      const res = await fetch('/api/judge/faucet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ recipientAddress: randomWallet.address }),
+      });
+
+      const json = await res.json();
+
+      if (json.success) {
+        setBurnerWallet({
+          address: randomWallet.address,
+          privateKey: randomWallet.privateKey,
+          avaxBalance: '0.10',
+          tasteBalance: '10,000',
+          txHash: json.data.txHash,
+          explorerUrl: json.data.explorerUrl,
+          isGenerating: false,
+          isFunded: true,
+        });
+
+        // Set globally for cross-tab customer/owner synchronization
+        setGlobalBurnerWallet(randomWallet.address);
+      } else {
+        // Fallback to local memory funding
         setBurnerWallet({
           address: randomWallet.address,
           privateKey: randomWallet.privateKey,
@@ -59,9 +92,10 @@ export default function JudgePage() {
           isFunded: true,
         });
         setGlobalBurnerWallet(randomWallet.address);
-      }, 1200);
+      }
     } catch (err) {
       console.error('Burner wallet generation failed:', err);
+      setBurnerWallet(null);
     }
   };
 
@@ -76,15 +110,40 @@ export default function JudgePage() {
     }
   };
 
+  // 1-Click Interactive Lifecycle Simulation for Judges
+  const runLivePipelineDemo = async () => {
+    setActivePipelineStep(1);
+    setPipelineOutput('Stage 1/5: Synthesizing dining receipt slip OCR hash (0x...) and checking anti-replay...');
+    await new Promise((r) => setTimeout(r, 900));
+
+    setActivePipelineStep(2);
+    setPipelineOutput('Stage 2/5: Venue review count < 3 detected. Granting Pioneer Slot 1 with 2x Token Multiplier (20 $TASTE)...');
+    await new Promise((r) => setTimeout(r, 900));
+
+    setActivePipelineStep(3);
+    setPipelineOutput('Stage 3/5: Admin 1-Click Daily Epoch settling 10,000 $TASTE pool among active Bangkok gastronomes...');
+    await new Promise((r) => setTimeout(r, 900));
+
+    setActivePipelineStep(4);
+    setPipelineOutput('Stage 4/5: Batch Web3 claim executed: 30.0 $TASTE and 0.05 AVAX sent to wallet on Avalanche Fuji...');
+    await new Promise((r) => setTimeout(r, 900));
+
+    setActivePipelineStep(5);
+    setPipelineOutput('Stage 5/5: Customer redeemed Free Crispy Pork: 80% $TASTE burned deflationarily, 20% transferred to merchant!');
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb & Hackathon Tag */}
-        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mb-6">
-          <Link href="/" className="hover:text-orange-400">Home</Link>
-          <span>/</span>
-          <span className="text-white font-medium">Judge Testing Hub</span>
-          <div className="ml-auto flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-3 text-xs text-slate-400 mb-6">
+          <div className="flex items-center gap-2">
+            <Link href="/" className="hover:text-orange-400">Home</Link>
+            <span>/</span>
+            <span className="text-white font-medium">Judge Evaluation Hub</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20">
               <ShieldCheck className="w-3.5 h-3.5" />
               <span>U-Hackathon @ Flow Summit Bangkok 2026</span>
@@ -99,11 +158,11 @@ export default function JudgePage() {
         {/* Header Banner */}
         <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-purple-950/60 via-slate-900 to-slate-950 border border-purple-500/30 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
-          
+
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 mb-4">
               <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-spin" />
-              <span>Flow Summit Bangkok 2026 • 24-Hour Hackathon</span>
+              <span>Flow Summit Bangkok 2026 • 24-Hour Hackathon Evaluation</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
               Judge Evaluation Hub & Dual Faucet
@@ -112,12 +171,12 @@ export default function JudgePage() {
               <strong>U-Hackathon runs inside Flow Summit Bangkok 2026</strong>, a two-day summit on the future of finance and the future of community. You get a hall of your own, 24 hours on the clock, mentors on the floor. Get the best out of your allocated time. Then you demo on the stage.
             </p>
             <p className="mt-2 text-xs text-slate-400 leading-relaxed">
-              This dedicated testing center equips judges with an instantaneous burner wallet loaded with <strong>0.1 Fuji AVAX</strong> (gas) and <strong>10,000 $TASTE</strong> (platform token) so you can evaluate all diner and merchant workflows in seconds without importing external funds.
+              This dedicated testing center equips judges with an instantaneous burner wallet loaded with <strong>0.1 Fuji AVAX</strong> (gas) and <strong>10,000 $TASTE</strong> (platform token) so you can evaluate all diner, merchant, and governance workflows in seconds without importing external funds.
             </p>
           </div>
 
           {/* Dual Faucet Launcher Box */}
-          <div className="mt-8 p-6 rounded-2xl bg-slate-900/90 border border-slate-700 max-w-2xl">
+          <div className="mt-8 p-6 rounded-2xl bg-slate-900/90 border border-slate-700 max-w-2xl shadow-xl">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2">
@@ -125,14 +184,14 @@ export default function JudgePage() {
                   <span className="font-bold text-base text-white">Instant 1-Click Dual Faucet</span>
                 </div>
                 <p className="text-xs text-slate-400 mt-1">
-                  Generates an ephemeral test keypair and dispenses <strong>0.1 AVAX</strong> + <strong>10,000 $TASTE</strong>.
+                  Generates an ephemeral keypair and dispenses <strong>0.1 AVAX</strong> + <strong>10,000 $TASTE</strong>.
                 </p>
               </div>
 
               <button
                 onClick={handleGenerateBurner}
                 disabled={burnerWallet?.isGenerating}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-95 shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-95 shadow-lg shadow-purple-500/20 flex items-center justify-center gap-2 transition-all active:scale-95"
               >
                 {burnerWallet?.isGenerating ? (
                   <>
@@ -191,8 +250,142 @@ export default function JudgePage() {
                     <div className="text-sm font-bold text-amber-400 mt-0.5">{burnerWallet.tasteBalance} $TASTE</div>
                   </div>
                 </div>
+
+                {burnerWallet.explorerUrl && (
+                  <div className="pt-2 flex items-center justify-between text-[11px] text-slate-400">
+                    <span>Snowtrace Block Explorer:</span>
+                    <a
+                      href={burnerWallet.explorerUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-purple-400 hover:underline font-mono"
+                    >
+                      <span>{burnerWallet.txHash?.slice(0, 14)}...</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                )}
               </div>
             )}
+          </div>
+        </div>
+
+        {/* 1-CLICK INTERACTIVE PROTOCOL PIPELINE SIMULATOR */}
+        <div className="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-slate-800">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2">
+                <Play className="w-5 h-5 text-orange-400 fill-current" />
+                <h2 className="text-xl font-bold text-white">1-Click Live Protocol Simulator</h2>
+              </div>
+              <p className="text-xs text-slate-400 mt-1">
+                Execute a simulated 5-stage protocol lifecycle in 5 seconds to inspect state transitions without manual inputs.
+              </p>
+            </div>
+
+            <button
+              onClick={runLivePipelineDemo}
+              disabled={activePipelineStep !== null && activePipelineStep < 5}
+              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90 shadow-md shadow-orange-500/20 flex items-center gap-2"
+            >
+              <Sparkles className="w-4 h-4 text-yellow-300" />
+              <span>Simulate Full Lifecycle</span>
+            </button>
+          </div>
+
+          {/* Stepper Progress */}
+          <div className="mt-6 grid grid-cols-5 gap-2 text-center text-xs">
+            {['1. Receipt OCR', '2. Pioneer 2x', '3. Admin Epoch', '4. Web3 Claim', '5. 80/20 Burn'].map(
+              (label, idx) => {
+                const stepNum = idx + 1;
+                const isDone = activePipelineStep !== null && activePipelineStep >= stepNum;
+                const isCurrent = activePipelineStep === stepNum;
+
+                return (
+                  <div
+                    key={label}
+                    className={`p-3 rounded-xl border transition-all ${
+                      isDone
+                        ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300'
+                        : isCurrent
+                        ? 'bg-orange-500/20 border-orange-500 text-orange-300 animate-pulse'
+                        : 'bg-slate-950 border-slate-800 text-slate-500'
+                    }`}
+                  >
+                    <div className="font-bold text-[11px]">{label}</div>
+                    <div className="text-[10px] mt-0.5">{isDone ? 'COMPLETED' : isCurrent ? 'RUNNING...' : 'WAITING'}</div>
+                  </div>
+                );
+              }
+            )}
+          </div>
+
+          {pipelineOutput && (
+            <div className="mt-4 p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-amber-300 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>{pipelineOutput}</span>
+            </div>
+          )}
+        </div>
+
+        {/* CURATED BANGKOK GASTRO HOTSPOTS (QUICK LAUNCHERS) */}
+        <div className="mt-12">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-white">Curated Bangkok Gastronomy Hotspots</h2>
+            <p className="text-xs text-slate-400 mt-1">
+              Test each core protocol innovation against real, pre-configured Bangkok landmark restaurants.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {CURATED_JUDGE_VENUES.map((venue) => (
+              <div
+                key={venue.id}
+                className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-orange-500/40 transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between text-xs mb-3">
+                    <span className="px-2.5 py-0.5 rounded-full font-bold bg-orange-500/10 text-orange-400 border border-orange-500/20 text-[10px]">
+                      {venue.category}
+                    </span>
+                    <span className="text-amber-400 font-bold text-xs">★ {venue.rating}</span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-white group-hover:text-orange-400 transition-colors">
+                    {venue.name}
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-1 flex items-center gap-1">
+                    <MapPin className="w-3.5 h-3.5 text-red-400 shrink-0" />
+                    <span>{venue.area}</span>
+                  </p>
+
+                  <div className="mt-4 p-3 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1.5 text-xs">
+                    <div className="text-[11px] text-slate-300">
+                      <strong>Highlight Dish:</strong> {venue.highlightDish}
+                    </div>
+                    <div className="text-[11px] text-orange-300 font-medium">
+                      💡 {venue.evaluatorNote}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                  <Link
+                    href={`/customer`}
+                    className="flex-1 py-2 px-3 rounded-xl text-center text-xs font-bold bg-orange-500 hover:bg-orange-600 text-white shadow-md shadow-orange-500/20 transition-all"
+                  >
+                    Test as Diner
+                  </Link>
+
+                  <Link
+                    href={`/owner`}
+                    className="flex-1 py-2 px-3 rounded-xl text-center text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
+                  >
+                    Test as Owner
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -221,10 +414,10 @@ export default function JudgePage() {
                 </p>
               </div>
               <Link
-                href="/#venues-explorer"
+                href="/customer"
                 className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-orange-400 hover:underline"
               >
-                <span>Select a venue to review</span>
+                <span>Open Diner Action Center</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>

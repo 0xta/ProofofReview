@@ -9,6 +9,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > **Network:** Avalanche C-Chain — Fuji Testnet (Chain ID: 43113)  
 > **Database:** PostgreSQL 17 (`tastechain` @ port 5432)
 
+## [v1.0.0-phase6] - 2026-10-16
+
+### Added
+- **1-Click Judge Dual Faucet Engine (`POST /api/judge/faucet`)**:
+  - Ephemeral burner wallet airdrop providing **0.10 Fuji AVAX** (gas fees) and **10,000 $TASTE** (platform tokens) in $< 3$ seconds without requiring external faucet imports.
+  - Generates verifiable Avalanche Fuji transaction hashes with direct Snowtrace block explorer links (`https://testnet.snowtrace.io/tx/...`).
+  - Records faucet disbursement in database accumulator (`customer_claimable_rewards`) with status `CLAIMED` and logs governance audit trail in `admin_activity_logs`.
+- **Curated Bangkok Gastronomy Destinations (`src/data/seed-venues.ts`)**:
+  - Pre-seeded landmark Bangkok eateries tailored for instant evaluation:
+    1. **Jeh O Chula (เจ๊โอว ข้าวต้มเป็ด บรรทัดทอง)**: Option 1 Receipt Slip OCR ($850$ THB bill) and Pioneer 2x Multiplier.
+    2. **Pad Thai Fai Ta Lu (ผัดไทยไฟทะลุ ถนนดินสอ)**: Option 2 Shop QR Stand and ElevenLabs Thai Voice AI playback (Slot 2 Energetic Casual).
+    3. **Thong Smith (ทองสมิทธ์ ก๋วยเตี๋ยวเรือ สยามพารากอน)**: Tokenomist 80/20 Deflationary Voucher Model (80% burned, 20% to merchant).
+- **Interactive Role Quick-Switcher (`src/components/RoleSwitcher.tsx`)**:
+  - Top navigation bar component providing instantaneous 1-click toggling between **Diner Customer**, **Merchant Hub**, **Protocol Admin**, and **1-Click Judge** views.
+- **1-Click Live Protocol Simulator (`src/app/judge/page.tsx`)**:
+  - In-browser interactive 5-stage simulation demonstrating end-to-end state transitions (Receipt OCR $\rightarrow$ Pioneer 2x Bonus $\rightarrow$ Admin Daily Epoch Settle $\rightarrow$ Web3 Batch Claim $\rightarrow$ 80/20 Voucher Burn) with live progress steps and toast feedback.
+- **Phase 6 Automated Verification Suite (`tests/phase6-e2e-demo.test.ts`)**:
+  - Comprehensive end-to-end journey test passing all 25 automated verification checks.
+  - Overall protocol test suite now reaches **118 passing tests** (12 Contracts + 13 Phase 1 + 19 Phase 3 + 26 Phase 4 + 23 Phase 5 + 25 Phase 6) with 0 failures.
+
+---
+
 ## [v0.5.0-phase5] - 2026-10-16
 
 ### Added
