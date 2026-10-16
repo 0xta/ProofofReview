@@ -37,3 +37,7 @@ next-env.d.ts
 /bin/
 *.exe
 
+# hardhat
+/artifacts
+/cache
+
