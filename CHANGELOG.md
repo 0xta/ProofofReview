@@ -11,6 +11,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v0.2.0-phase2] - 2026-10-16
+
+### Added
+- Hardhat development and deployment architecture configured for Avalanche Fuji C-Chain (Chain ID: 43113) and in-memory local testing.
+- 5 Core Solidity smart contracts in `contracts/`:
+  - `TasteToken.sol`: ERC-20 utility & reward token ($TASTE) with authorized minter role and burnable functionality.
+  - `ProofOfReview.sol`: On-chain gastronomy review registry recording verification tiers (Option 1 Receipt Slip OCR vs Option 2 Shop QR), Pioneer 2x multiplier for first 3 reviewers per venue, and SHA-256 receipt slip anti-replay protection.
+  - `MerchantEscrow.sol`: AVAX bounty escrow allowing restaurant owners to fund review incentives in native AVAX with relayer claim execution and merchant refund capabilities.
+  - `MerchantPromotions.sol`: Token voucher redemption engine enforcing Tokenomist's 80/20 economic model (80% $TASTE burned deflationarily, 20% transferred to merchant).
+  - `DailyEpochRewards.sol`: Daily 10,000 $TASTE mining emission contract featuring `manualDistributeEpoch` for Admin 1-Click Hackathon PoC distribution and asynchronous customer claim settlement (`distributeClaim`).
+- Comprehensive Hardhat integration test suite in `test/contracts.test.js` covering 12 critical test scenarios (12 passed, 0 failed).
+- Automated deployment and permission wiring script `scripts/deploy.js` deploying all 5 contracts, setting DailyEpochRewards as minter on TasteToken, deployer as recorder/relayer, and writing outputs to `src/data/contracts.json`.
+- Frontend contract abstraction in `src/lib/contracts.ts` exporting addresses and ABIs for ethers v6 integration.
+- Updated Judge testing hub (`/judge`) architecture reference table displaying all 5 deployed contracts.
+
+---
+
 ## [v0.1.0-phase1] - 2026-10-16
 
 ### Added
