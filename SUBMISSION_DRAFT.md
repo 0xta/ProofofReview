@@ -3,6 +3,7 @@
 
 > **Repository:** [https://github.com/0xta/ProofofReview](https://github.com/0xta/ProofofReview)  
 > **Network:** Avalanche C-Chain — Fuji Testnet (Chain ID: `43113`)  
+> **Live Demo URL (Mobile & Desktop):** [https://noon-how-cant-looks.trycloudflare.com](https://noon-how-cant-looks.trycloudflare.com)  
 > **Target Track:** Web3 Consumer Apps / AI Agents / DePIN Gastronomy
 
 ---

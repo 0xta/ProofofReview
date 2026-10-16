@@ -33,7 +33,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# hardhat
-/artifacts
-/cache
+# local binaries
+/bin/
+*.exe
 

@@ -4,6 +4,7 @@
 > **U-Hackathon @ Flow Summit Bangkok 2026** (24-Hour Hackathon)  
 > **Network:** Avalanche C-Chain — Fuji Testnet (Chain ID: `43113` / `0xa869`)  
 > **Repository:** [https://github.com/0xta/ProofofReview](https://github.com/0xta/ProofofReview)  
+> **Live Demo URL (Mobile & Desktop):** [https://noon-how-cant-looks.trycloudflare.com](https://noon-how-cant-looks.trycloudflare.com)  
 > **Local Demo URL:** `http://localhost:3002`
 
 ---
