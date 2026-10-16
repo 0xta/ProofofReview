@@ -17,6 +17,7 @@ import {
   RefreshCw,
   Info,
 } from 'lucide-react';
+import { setBurnerWallet as setGlobalBurnerWallet, connectMetaMaskWallet } from '@/lib/wallet';
 
 export default function JudgePage() {
   const [burnerWallet, setBurnerWallet] = useState<{
@@ -57,6 +58,7 @@ export default function JudgePage() {
           isGenerating: false,
           isFunded: true,
         });
+        setGlobalBurnerWallet(randomWallet.address);
       }, 1200);
     } catch (err) {
       console.error('Burner wallet generation failed:', err);

@@ -28,6 +28,15 @@ import {
   Info,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import {
+  connectMetaMaskWallet,
+  switchToAvalancheFuji,
+  getStoredWallet,
+  setBurnerWallet,
+  disconnectWallet,
+  AVALANCHE_FUJI_PARAMS,
+  WalletType,
+} from '@/lib/wallet';
 
 interface Venue {
   place_id: string;
@@ -68,6 +77,9 @@ export default function CustomerPage() {
 
   // Wallet State
   const [walletAddress, setWalletAddress] = useState<string>('');
+  const [walletType, setWalletType] = useState<WalletType>('burner');
+  const [isFuji, setIsFuji] = useState(true);
+  const [isConnectingMetaMask, setIsConnectingMetaMask] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
   // Venues State
@@ -110,26 +122,128 @@ export default function CustomerPage() {
   const [isRedeeming, setIsRedeeming] = useState<string | null>(null);
   const [redeemedVoucher, setRedeemedVoucher] = useState<any | null>(null);
 
-  // Initialize Wallet from LocalStorage or generate demo wallet
+  // Initialize Wallet
   useEffect(() => {
-    let saved = localStorage.getItem('tastechain_burner_address');
-    if (!saved) {
-      // Check judge wallet
-      saved = localStorage.getItem('tastechain_burner_wallet');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          saved = parsed.address;
-        } catch (e) {}
+    // 1. Check if MetaMask is already connected
+    if (typeof window !== 'undefined' && (window as any).ethereum) {
+      const ethereum = (window as any).ethereum;
+
+      ethereum
+        .request({ method: 'eth_accounts' })
+        .then((accounts: string[]) => {
+          if (accounts.length > 0) {
+            setWalletAddress(accounts[0]);
+            setWalletType('metamask');
+            localStorage.setItem('tastechain_active_wallet', accounts[0]);
+            localStorage.setItem('tastechain_wallet_type', 'metamask');
+          } else {
+            // Check stored wallet or fallback to burner
+            initStoredOrBurner();
+          }
+        })
+        .catch(() => initStoredOrBurner());
+
+      // Check chain
+      ethereum
+        .request({ method: 'eth_chainId' })
+        .then((chainId: string) => {
+          setIsFuji(chainId?.toLowerCase() === AVALANCHE_FUJI_PARAMS.chainId.toLowerCase());
+        })
+        .catch(() => {});
+
+      // Event listeners
+      const handleAccountsChanged = (accounts: string[]) => {
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          setWalletType('metamask');
+          localStorage.setItem('tastechain_active_wallet', accounts[0]);
+          localStorage.setItem('tastechain_wallet_type', 'metamask');
+        } else {
+          initStoredOrBurner();
+        }
+      };
+
+      const handleChainChanged = (chainId: string) => {
+        setIsFuji(chainId?.toLowerCase() === AVALANCHE_FUJI_PARAMS.chainId.toLowerCase());
+      };
+
+      ethereum.on('accountsChanged', handleAccountsChanged);
+      ethereum.on('chainChanged', handleChainChanged);
+
+      return () => {
+        ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        ethereum.removeListener('chainChanged', handleChainChanged);
+      };
+    } else {
+      initStoredOrBurner();
+    }
+
+    function initStoredOrBurner() {
+      const stored = getStoredWallet();
+      if (stored.address) {
+        setWalletAddress(stored.address);
+        setWalletType(stored.walletType || 'burner');
+        return;
       }
+
+      let saved = localStorage.getItem('tastechain_burner_address');
+      if (!saved) {
+        saved = '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+        localStorage.setItem('tastechain_burner_address', saved);
+      }
+      setWalletAddress(saved);
+      setWalletType('burner');
+      localStorage.setItem('tastechain_active_wallet', saved);
+      localStorage.setItem('tastechain_wallet_type', 'burner');
     }
-    if (!saved) {
-      // Generate a deterministic demo burner address for convenience
-      saved = '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
-      localStorage.setItem('tastechain_burner_address', saved);
-    }
-    setWalletAddress(saved);
   }, []);
+
+  // Listen to cross-component wallet change events
+  useEffect(() => {
+    const handleWalletChanged = (e: any) => {
+      if (e.detail?.address) {
+        setWalletAddress(e.detail.address);
+        setWalletType(e.detail.walletType);
+        if (typeof e.detail.isFuji === 'boolean') {
+          setIsFuji(e.detail.isFuji);
+        }
+      }
+    };
+    window.addEventListener('tastechain_wallet_changed', handleWalletChanged);
+    return () => window.removeEventListener('tastechain_wallet_changed', handleWalletChanged);
+  }, []);
+
+  async function handleConnectMetaMask() {
+    setIsConnectingMetaMask(true);
+    try {
+      const res = await connectMetaMaskWallet();
+      if (res) {
+        setWalletAddress(res.address);
+        setWalletType('metamask');
+        setIsFuji(res.isFuji);
+      }
+    } catch (err: any) {
+      alert(err.message || 'MetaMask connection failed. Please ensure MetaMask extension is installed and unlocked.');
+    } finally {
+      setIsConnectingMetaMask(false);
+    }
+  }
+
+  async function handleSwitchToFuji() {
+    await switchToAvalancheFuji();
+  }
+
+  function handleSwitchToBurner() {
+    let burner = localStorage.getItem('tastechain_burner_address');
+    if (!burner) {
+      burner = '0x' + Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+      localStorage.setItem('tastechain_burner_address', burner);
+    }
+    setBurnerWallet(burner);
+    setWalletAddress(burner);
+    setWalletType('burner');
+    setIsFuji(true);
+  }
 
   // Fetch initial venues
   useEffect(() => {
@@ -429,24 +543,38 @@ export default function CustomerPage() {
               </p>
             </div>
 
-            {/* Burner Wallet Card */}
-            <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col gap-2 min-w-[280px]">
+            {/* Web3 / MetaMask Wallet Card */}
+            <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col gap-2.5 min-w-[320px]">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-400 flex items-center gap-1.5">
+                <span className="text-slate-300 font-semibold flex items-center gap-1.5">
                   <Wallet className="w-3.5 h-3.5 text-orange-400" />
-                  <span>Connected Burner Wallet</span>
+                  <span>
+                    {walletType === 'metamask' ? '🦊 MetaMask Active' : '⚡ Demo Burner Active'}
+                  </span>
                 </span>
-                <button
-                  onClick={handleGenerateNewWallet}
-                  className="text-[11px] text-orange-400 hover:underline"
-                >
-                  New Demo
-                </button>
+                
+                {walletType === 'metamask' ? (
+                  <button
+                    onClick={handleSwitchToBurner}
+                    className="text-[11px] text-slate-400 hover:text-orange-400 transition-colors"
+                  >
+                    Switch to Burner
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleConnectMetaMask}
+                    disabled={isConnectingMetaMask}
+                    className="text-[11px] text-orange-400 hover:underline font-bold"
+                  >
+                    {isConnectingMetaMask ? 'Connecting...' : 'Connect MetaMask'}
+                  </button>
+                )}
               </div>
 
+              {/* Wallet Address Display */}
               <div className="flex items-center justify-between bg-slate-900/90 px-3 py-2 rounded-xl border border-slate-800">
-                <code className="text-xs text-orange-300 font-mono">
-                  {walletAddress ? `${walletAddress.substring(0, 8)}...${walletAddress.substring(36)}` : 'Generating...'}
+                <code className="text-xs text-orange-300 font-mono font-semibold">
+                  {walletAddress ? `${walletAddress.substring(0, 10)}...${walletAddress.substring(34)}` : 'No wallet connected'}
                 </code>
                 <button
                   onClick={handleCopyAddress}
@@ -457,10 +585,43 @@ export default function CustomerPage() {
                 </button>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] text-slate-500">
-                <span>Avalanche Fuji C-Chain</span>
-                <span className="text-emerald-400 font-medium">● Connected</span>
+              {/* Network Status & Actions */}
+              <div className="flex items-center justify-between text-[11px]">
+                {walletType === 'metamask' && !isFuji ? (
+                  <button
+                    onClick={handleSwitchToFuji}
+                    className="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 animate-pulse flex items-center gap-1"
+                  >
+                    <span>⚠️ Switch to Fuji</span>
+                  </button>
+                ) : (
+                  <span className="text-slate-400">Avalanche Fuji C-Chain</span>
+                )}
+
+                <div className="flex items-center gap-2">
+                  {walletType === 'burner' && (
+                    <button
+                      onClick={handleGenerateNewWallet}
+                      className="text-[10px] text-slate-500 hover:text-slate-300"
+                    >
+                      New Burner
+                    </button>
+                  )}
+                  <span className="text-emerald-400 font-medium">● Connected</span>
+                </div>
               </div>
+
+              {/* Quick Connect MetaMask Button if using Burner */}
+              {walletType !== 'metamask' && (
+                <button
+                  onClick={handleConnectMetaMask}
+                  disabled={isConnectingMetaMask}
+                  className="w-full mt-1 py-1.5 rounded-lg bg-orange-500/10 border border-orange-500/30 hover:bg-orange-500/20 text-orange-300 text-xs font-bold transition-all flex items-center justify-center gap-1.5"
+                >
+                  <Wallet className="w-3.5 h-3.5 text-orange-400" />
+                  <span>{isConnectingMetaMask ? 'Connecting MetaMask...' : 'Use My MetaMask Wallet Instead'}</span>
+                </button>
+              )}
             </div>
           </div>
 

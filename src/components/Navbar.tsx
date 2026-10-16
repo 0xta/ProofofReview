@@ -3,46 +3,133 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Utensils, Award, Store, ShieldCheck, Flame, Wallet, Sparkles } from 'lucide-react';
+import { Utensils, Award, Store, ShieldCheck, Flame, Wallet, Sparkles, ExternalLink, LogOut, AlertTriangle } from 'lucide-react';
+import {
+  connectMetaMaskWallet,
+  switchToAvalancheFuji,
+  getStoredWallet,
+  disconnectWallet,
+  AVALANCHE_FUJI_PARAMS,
+} from '@/lib/wallet';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
+  const [walletType, setWalletType] = useState<string | null>(null);
+  const [isFuji, setIsFuji] = useState<boolean>(true);
   const [isConnecting, setIsConnecting] = useState(false);
 
   useEffect(() => {
-    // Check if ethereum is injected
+    // 1. Check stored wallet
+    const stored = getStoredWallet();
+    if (stored.address) {
+      setWalletAddress(stored.address);
+      setWalletType(stored.walletType);
+    }
+
+    // 2. Check injected MetaMask
     if (typeof window !== 'undefined' && (window as any).ethereum) {
-      (window as any).ethereum
+      const ethereum = (window as any).ethereum;
+
+      // Check current accounts
+      ethereum
         .request({ method: 'eth_accounts' })
         .then((accounts: string[]) => {
           if (accounts.length > 0) {
             setWalletAddress(accounts[0]);
+            setWalletType('metamask');
+            localStorage.setItem('tastechain_active_wallet', accounts[0]);
+            localStorage.setItem('tastechain_wallet_type', 'metamask');
           }
         })
         .catch(() => {});
+
+      // Check chain
+      ethereum
+        .request({ method: 'eth_chainId' })
+        .then((chainId: string) => {
+          setIsFuji(chainId?.toLowerCase() === AVALANCHE_FUJI_PARAMS.chainId.toLowerCase());
+        })
+        .catch(() => {});
+
+      // Event listeners
+      const handleAccountsChanged = (accounts: string[]) => {
+        if (accounts.length > 0) {
+          setWalletAddress(accounts[0]);
+          setWalletType('metamask');
+          localStorage.setItem('tastechain_active_wallet', accounts[0]);
+          localStorage.setItem('tastechain_wallet_type', 'metamask');
+          window.dispatchEvent(
+            new CustomEvent('tastechain_wallet_changed', {
+              detail: { address: accounts[0], walletType: 'metamask', isFuji: true },
+            })
+          );
+        } else {
+          setWalletAddress(null);
+          setWalletType(null);
+          localStorage.removeItem('tastechain_active_wallet');
+          localStorage.removeItem('tastechain_wallet_type');
+          window.dispatchEvent(
+            new CustomEvent('tastechain_wallet_changed', {
+              detail: { address: null, walletType: null, isFuji: false },
+            })
+          );
+        }
+      };
+
+      const handleChainChanged = (chainId: string) => {
+        setIsFuji(chainId?.toLowerCase() === AVALANCHE_FUJI_PARAMS.chainId.toLowerCase());
+      };
+
+      ethereum.on('accountsChanged', handleAccountsChanged);
+      ethereum.on('chainChanged', handleChainChanged);
+
+      return () => {
+        ethereum.removeListener('accountsChanged', handleAccountsChanged);
+        ethereum.removeListener('chainChanged', handleChainChanged);
+      };
     }
   }, []);
 
-  const connectWallet = async () => {
-    if (typeof window === 'undefined') return;
-    if (!(window as any).ethereum) {
-      alert('MetaMask or Web3 wallet is not detected. You can use the 1-Click Judge Demo on /judge to generate an instant burner wallet with 0.1 AVAX & 10,000 $TASTE!');
-      return;
-    }
+  // Listen to custom wallet change events across tabs/pages
+  useEffect(() => {
+    const handleCustomChange = (e: any) => {
+      if (e.detail) {
+        setWalletAddress(e.detail.address);
+        setWalletType(e.detail.walletType);
+        if (typeof e.detail.isFuji === 'boolean') {
+          setIsFuji(e.detail.isFuji);
+        }
+      }
+    };
+    window.addEventListener('tastechain_wallet_changed', handleCustomChange);
+    return () => window.removeEventListener('tastechain_wallet_changed', handleCustomChange);
+  }, []);
+
+  const handleConnectMetaMask = async () => {
+    setIsConnecting(true);
     try {
-      setIsConnecting(true);
-      const accounts = await (window as any).ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-      if (accounts.length > 0) {
-        setWalletAddress(accounts[0]);
+      const result = await connectMetaMaskWallet();
+      if (result) {
+        setWalletAddress(result.address);
+        setWalletType('metamask');
+        setIsFuji(result.isFuji);
       }
     } catch (err: any) {
-      console.error('Wallet connection failed:', err);
+      alert(err.message || 'MetaMask connection failed.');
     } finally {
       setIsConnecting(false);
     }
+  };
+
+  const handleSwitchToFuji = async () => {
+    await switchToAvalancheFuji();
+  };
+
+  const handleDisconnect = () => {
+    disconnectWallet();
+    setWalletAddress(null);
+    setWalletType(null);
   };
 
   const navLinks = [
@@ -108,22 +195,46 @@ export default function Navbar() {
               </span>
             </Link>
 
-            <button
-              onClick={connectWallet}
-              disabled={isConnecting}
-              className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors"
-            >
-              <Wallet className="w-3.5 h-3.5 text-orange-400" />
-              {walletAddress ? (
-                <span className="font-mono text-[11px] text-emerald-400">
-                  {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
-                </span>
-              ) : isConnecting ? (
-                <span>Connecting...</span>
-              ) : (
-                <span>Connect Wallet</span>
-              )}
-            </button>
+            {!isFuji && walletAddress && walletType === 'metamask' && (
+              <button
+                onClick={handleSwitchToFuji}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all animate-pulse"
+                title="Click to switch MetaMask to Avalanche Fuji Testnet"
+              >
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                <span>Switch to Fuji</span>
+              </button>
+            )}
+
+            {walletAddress ? (
+              <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-700/80 rounded-xl p-1 pr-2">
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-slate-950 text-xs">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="font-mono text-[11px] text-emerald-300 font-semibold">
+                    {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                  </span>
+                  <span className="text-[10px] px-1 py-0.2 rounded bg-slate-800 text-slate-400 uppercase">
+                    {walletType || 'Web3'}
+                  </span>
+                </div>
+                <button
+                  onClick={handleDisconnect}
+                  title="Disconnect Wallet"
+                  className="p-1 rounded text-slate-400 hover:text-red-400 hover:bg-slate-800 transition-colors"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleConnectMetaMask}
+                disabled={isConnecting}
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white shadow-md shadow-orange-500/20 transition-all"
+              >
+                <Wallet className="w-3.5 h-3.5 text-white" />
+                {isConnecting ? <span>Connecting...</span> : <span>Connect MetaMask</span>}
+              </button>
+            )}
           </div>
         </div>
       </div>
