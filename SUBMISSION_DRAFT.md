@@ -111,7 +111,10 @@ Hackathon judges can click **"1-Click Judge Demo"** in the navigation bar to imm
 
 ## 🚀 What's next for TasteChain BKK (แผนงานในอนาคต)
 
-1. **Avalanche Subnet / L1 Migration:** Launch a dedicated **TasteChain Subnet** on Avalanche with custom gas tokens sponsored by merchant advertising fees.
-2. **LINE Mini-App Integration:** Embed the diner experience directly into LINE (Thailand's primary messaging app with 54M users) for frictionless adoption among local Bangkokians.
-3. **POS Terminal & PromptPay Integration:** Partner with Thai POS terminal providers (Wongnai POS, Ocha) for automatic cryptographic slip generation directly from cash registers.
-4. **City Expansion:** Expand beyond Bangkok to major gastronomic tourism hubs across Southeast Asia (Chiang Mai, Phuket, Singapore, Tokyo).
+1. **U-Topia Super-App Direct Payment Integration (เชื่อมต่อแอป U-Topia เพื่อใช้จ่ายกับร้านค้าจริง):**
+   - Deeply integrate with **U-Topia's all-in-one wallet and payment rails**, enabling diners to directly spend their accumulated $TASTE tokens, stablecoins, and digital assets at the counters of all 43,649 Bangkok partner eateries.
+   - Leverage U-Topia's cross-chain liquidity and payment infrastructure so international food tourists visiting Bangkok can pay for street food and fine dining using any crypto asset (ETH, SOL, BTC, AVAX) with instant settlement and automated Tokenomist 80/20 token burns.
+2. **Avalanche Subnet / L1 Migration:** Launch a dedicated **TasteChain Subnet** on Avalanche with custom gas tokens sponsored by merchant advertising pools.
+3. **LINE Mini-App Integration:** Embed the diner experience directly into LINE (Thailand's primary messaging app with 54M users) for frictionless adoption among local Bangkokians.
+4. **POS Terminal & PromptPay Integration:** Partner with Thai POS terminal providers (Wongnai POS, Ocha) for automatic cryptographic slip generation directly from cash registers.
+5. **City Expansion:** Expand beyond Bangkok to major gastronomic tourism hubs across Southeast Asia (Chiang Mai, Phuket, Singapore, Tokyo).
