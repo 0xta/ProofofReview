@@ -72,7 +72,7 @@ Hackathon judges can click **"1-Click Judge Demo"** in the navigation bar to imm
 | **U-Topia** | Powers seamless Web3 wallet accessibility, digital asset management, and cross-chain ready burner wallet integration for non-crypto diners. |
 | **ElevenLabs** | Multilingual Voice AI synthesis engine (`eleven_multilingual_v2`) creating 3 specialized Thai vocal personas (Warm & Welcoming, Energetic Casual, Luxury Chef) dynamically greeting diners at checkout. |
 | **Avalanche C-Chain** | Sub-second finality execution layer on **Fuji Testnet (Chain ID: 43113)** hosting 5 custom Solidity smart contracts (`TasteToken`, `ProofOfReview`, `MerchantEscrow`, `MerchantPromotions`, `DailyEpochRewards`). |
-| **u.bot** | Autonomous AI agent performing intelligent dining receipt slip OCR extraction, perceptual food image hashing (`pHash`), and anti-fraud deduplication. |
+| **u.bot** | Autonomous AI assistant used for generating TasteChain BKK branding/logos, conceptual slide graphics, and synthesizing the 10-minute hackathon pitch script and presentation content. |
 | **Tokenomist** | Sustainable tokenomics advisory powering our **80/20 Deflationary Voucher Model**: 80% of $TASTE tokens redeemed for merchant vouchers are permanently burned from supply. |
 
 ### 💻 Tech Stack
@@ -80,13 +80,13 @@ Hackathon judges can click **"1-Click Judge Demo"** in the navigation bar to imm
 - **Web3 & Blockchain:** Hardhat, ethers.js v6, Avalanche Fuji C-Chain (43113).
 - **Backend & Database:** Node.js, Next.js Route Handlers, PostgreSQL 17 (indexing **43,649 Bangkok eateries** with coordinates, ratings, and categories).
 - **Voice & Media:** ElevenLabs API with dual caching and HTML5 Web Audio synthesizer.
-- **Computer Vision & Math:** OpenAI Vision OCR fallback, Haversine GPS distance formula, Blockhash & cryptographic HMAC nonces.
+- **Computer Vision & Math:** Multi-modal OCR heuristics, Haversine GPS distance formula, Blockhash & cryptographic HMAC nonces.
 
 ---
 
 ## 🧗 Challenges we ran into (อุปสรรคและความท้าทาย)
 
-1. **Receipt OCR Accuracy & Fraud Prevention:** Thai restaurant receipt slips vary widely—from handwritten thermal slips to formal tax invoices. We solved this by creating a robust normalization pipeline combining u.bot / OpenAI Vision heuristics with deterministic `sha256(place:ref:amount)` hashing and perceptual image fingerprinting (`pHash`) to prevent diners from reusing the same slip or photo.
+1. **Receipt OCR Accuracy & Fraud Prevention:** Thai restaurant receipt slips vary widely—from handwritten thermal slips to formal tax invoices. We solved this by creating a robust normalization pipeline combining multi-modal computer vision heuristics with deterministic `sha256(place:ref:amount)` hashing and perceptual image fingerprinting (`pHash`) to prevent diners from reusing the same slip or photo.
 2. **PostgreSQL Concurrency with Row-Level Locking:** During high-concurrency voucher redemptions and batch claims, applying `FOR UPDATE` on tables with outer joins caused query lock conflicts. We resolved this by explicitly targeting `FOR UPDATE OF <alias>` on the primary mutable tables.
 3. **Fuji C-Chain Testnet Onboarding Friction:** Hackathon judges typically have limited time and lack Fuji AVAX testnet gas tokens. We engineered an in-memory burner wallet system with a server-side dual faucet (`/api/judge/faucet`) dispensing 0.1 AVAX and 10,000 $TASTE in $< 2$ seconds directly from the top navigation bar.
 

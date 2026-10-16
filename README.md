@@ -25,7 +25,7 @@ Bangkok is the street food and culinary capital of the world, home to over 43,00
 | **U-Topia** | Decentralized physical infrastructure (DePIN) & Web3 AI layer for verifiable in-store dining experiences. |
 | **ElevenLabs** | Multilingual Thai Voice AI studio with 3 tailored Bangkok personas (Warm & Welcoming, Energetic Casual, Luxury Chef) dynamically greeting diners at checkout and upon review submission. |
 | **Avalanche C-Chain** | High-throughput, sub-second finality execution layer (Fuji Testnet `43113`) hosting 5 production-grade smart contracts, AVAX visit bounties, and immutable receipt slip hashes. |
-| **u.bot** | Autonomous AI agent automating dining receipt slip OCR, perceptual image hashing (`pHash`), and fraud detection. |
+| **u.bot** | Autonomous AI assistant used for generating TasteChain BKK branding/logos, conceptual slide graphics, and synthesizing the 10-minute hackathon pitch script and presentation content. |
 | **Tokenomist** | Sustainable tokenomics advisory powering our **80/20 Deflationary Voucher Model**: 80% of $TASTE tokens redeemed for merchant vouchers are permanently burned from supply. |
 
 ---
@@ -130,7 +130,7 @@ Open [http://localhost:3002](http://localhost:3002) in your browser.
 
 ---
 
-## 🧪 Comprehensive Test Suite (93 Passing Tests)
+## 🧪 Comprehensive Test Suite (121 Passing Tests)
 
 TasteChain BKK is thoroughly covered by unit, integration, and smart contract tests:
 
