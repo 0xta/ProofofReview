@@ -9,6 +9,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > **Network:** Avalanche C-Chain — Fuji Testnet (Chain ID: 43113)  
 > **Database:** PostgreSQL 17 (`tastechain` @ port 5432)
 
+## [v0.5.0-phase5] - 2026-10-16
+
+### Added
+- **Admin Governance & Protocol Telemetry Portal (`/admin`)**:
+  - Live protocol metrics dashboard tracking 43,649 Bangkok gastronomic venues, verified reviews, AVAX merchant bounties, active promotions, and daily epoch emission status.
+  - Direct navigation link added to global Navigation Bar.
+- **Merchant Legal DBD KYC Verification Queue**:
+  - Administrative review interface (`src/app/admin/page.tsx` & `src/lib/services/admin.ts`) processing merchant claims on Bangkok venues.
+  - Validates Department of Business Development (DBD) corporate registration numbers, owner legal names, contact numbers, and attached KYC verification assets.
+  - Integrated Document Preview Modal providing high-resolution inspection of Thai National ID cards, storefront banners, and business certificates.
+  - 1-Click **Approve** workflow: Atomically updates verification status to `APPROVED`, maps owner wallet to `place_owners`, and logs admin governance record.
+  - 1-Click **Reject** workflow: Records formal rejection reasons and updates status to `REJECTED`.
+  - Automatic demo seeding (`seedDemoKycApplications`) providing realistic Bangkok restaurant KYC submissions for hackathon evaluation.
+- **1-Click Manual Daily Token Epoch Distribution (Hackathon PoC)**:
+  - Protocol emission engine allocating the daily 10,000 $TASTE mining pool among active gastronomy contributors.
+  - Interacts with `DailyEpochRewards.sol` contract and PostgreSQL ledger (`daily_token_epochs`, `user_epoch_shares`).
+  - Asynchronously credits calculated mining shares to contributor balances in `customer_claimable_rewards`.
+  - Enforces strict anti-double distribution per calendar date with status transitioned to `SETTLED`.
+  - Generates verifiable Avalanche Fuji transaction hashes with direct Snowtrace block explorer links.
+- **Immutable Governance Audit Logs**:
+  - Tamper-evident administrative audit trail (`admin_activity_logs`) tracking all governance actions (`KYC_APPROVED`, `KYC_REJECTED`, `EPOCH_DISTRIBUTED`) with timestamp, admin wallet, target entity, and detailed execution metadata.
+- **Phase 5 Automated Verification Suite**:
+  - `tests/phase5-admin-governance.test.ts` passing all 23 automated verification tests.
+  - Total protocol test suite now reaches **93 passing tests** (12 Contracts + 13 Phase 1 + 19 Phase 3 + 26 Phase 4 + 23 Phase 5).
+
+---
+
 ## [v0.4.0-phase4] - 2026-10-16
 
 ### Added

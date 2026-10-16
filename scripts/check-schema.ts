@@ -6,7 +6,7 @@ async function main() {
   );
   console.log('Tables:', tables.rows.map(r => r.table_name));
 
-  for (const t of ['merchant_bounties', 'merchant_promotions', 'promotion_redemptions', 'pioneer_claims']) {
+  for (const t of ['daily_token_epochs', 'user_epoch_shares', 'owner_verifications', 'admin_activity_logs']) {
     const cols = await pool.query(
       `SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name=$1 ORDER BY ordinal_position`,
       [t]
