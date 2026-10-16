@@ -41,7 +41,7 @@ function OwnerContent() {
 
   // Sync placeId from query params if passed
   useEffect(() => {
-    const paramPlaceId = searchParams.get('placeId');
+    const paramPlaceId = searchParams.get('placeId') || searchParams.get('place_id');
     if (paramPlaceId) {
       setSelectedPlaceId(paramPlaceId);
     }
@@ -54,21 +54,25 @@ function OwnerContent() {
 
   const fetchVenue = async (id: string) => {
     try {
-      const res = await fetch(`/api/places?search=&limit=1`);
-      // Or query place directly
+      const res = await fetch(`/api/places/${id}`);
+      const json = await res.json();
+      if (json.success && json.data) {
+        setVenue(json.data);
+        return;
+      }
+      
+      // Fallback
       const placeRes = await fetch(`/api/places/${id}/voices`);
       const placeData = await placeRes.json();
-      if (placeData.success) {
-        setVenue({
-          id,
-          place_id: id,
-          name: placeData.venueName || 'Baobao.. Bar Sathorn',
-          address: 'Sathorn, Bangkok, Thailand',
-          city: 'กรุงเทพมหานคร',
-          rating: 5.0,
-          service_type: 'Bar & Bistro',
-        });
-      }
+      setVenue({
+        id,
+        place_id: id,
+        name: placeData.venueName || 'Bangkok Venue',
+        address: 'Bangkok, Thailand',
+        city: 'กรุงเทพมหานคร',
+        rating: 4.8,
+        service_type: 'Restaurant',
+      });
     } catch (err) {
       console.error('Failed to load venue:', err);
     }

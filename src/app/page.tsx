@@ -20,6 +20,10 @@ import {
   CheckCircle2,
   Users,
   Compass,
+  Info,
+  X,
+  Copy,
+  Check,
 } from 'lucide-react';
 
 interface Place {
@@ -32,6 +36,8 @@ interface Place {
   rating: number | null;
   total_reviews: number | null;
   google_map_url: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
   has_owner?: boolean;
   active_bounties_count?: number;
   promotions_count?: number;
@@ -70,6 +76,8 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [activeRoleTab, setActiveRoleTab] = useState<'customer' | 'owner' | 'admin'>('customer');
+  const [selectedShopInfo, setSelectedShopInfo] = useState<Place | null>(null);
+  const [copiedGps, setCopiedGps] = useState(false);
 
   const categories = [
     { label: 'All Venues', value: 'ALL' },
@@ -617,7 +625,11 @@ export default function HomePage() {
                   key={place.id}
                   className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between group shadow-sm hover:shadow-lg"
                 >
-                  <div>
+                  <div
+                    onClick={() => setSelectedShopInfo(place)}
+                    className="cursor-pointer"
+                    title="Click to view shop details"
+                  >
                     <div className="flex items-start justify-between gap-2 mb-2">
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
                         {place.service_type || 'Restaurant'}
@@ -662,30 +674,25 @@ export default function HomePage() {
 
                   {/* Actions */}
                   <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
-                    {place.google_map_url ? (
-                      <a
-                        href={place.google_map_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[11px] text-slate-400 hover:text-slate-200 flex items-center gap-1"
-                      >
-                        <MapPin className="w-3 h-3 text-orange-400" />
-                        <span>Maps</span>
-                        <ExternalLink className="w-2.5 h-2.5" />
-                      </a>
-                    ) : (
-                      <span className="text-[11px] text-slate-500 font-mono">Bangkok</span>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => setSelectedShopInfo(place)}
+                      className="text-[11px] text-slate-300 hover:text-white flex items-center gap-1 px-2 py-1 rounded bg-slate-800/80 hover:bg-slate-700 transition-colors"
+                      title="View full shop information"
+                    >
+                      <Info className="w-3 h-3 text-orange-400" />
+                      <span>Shop Info</span>
+                    </button>
 
                     <div className="flex items-center gap-2">
                       <Link
-                        href={`/owner?place_id=${place.place_id}`}
-                        className="text-[11px] text-amber-400 hover:underline"
+                        href={`/owner?placeId=${place.place_id}`}
+                        className="text-[11px] text-amber-400 hover:underline px-1 py-1"
                       >
                         Claim
                       </Link>
                       <Link
-                        href={`/customer?place_id=${place.place_id}`}
+                        href={`/customer?placeId=${place.place_id}`}
                         className="px-2.5 py-1 rounded-lg text-[11px] font-bold text-white bg-orange-500 hover:bg-orange-600 transition-colors"
                       >
                         Review
@@ -698,6 +705,155 @@ export default function HomePage() {
           )}
         </div>
       </section>
+
+      {/* INTERACTIVE SHOP INFO MODAL */}
+      {selectedShopInfo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150"
+          onClick={() => setSelectedShopInfo(null)}
+        >
+          <div
+            className="w-full max-w-lg bg-slate-900 border border-slate-700 rounded-2xl p-6 shadow-2xl relative text-slate-100 max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-start justify-between gap-4 pb-4 border-b border-slate-800">
+              <div>
+                <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                  <span className="text-[11px] font-mono px-2.5 py-0.5 rounded bg-slate-800 text-orange-400 border border-slate-700 font-semibold">
+                    {selectedShopInfo.service_type || 'Restaurant'}
+                  </span>
+                  {selectedShopInfo.has_owner ? (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                      Verified Owner
+                    </span>
+                  ) : (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-400">
+                      Unclaimed Venue
+                    </span>
+                  )}
+                  {selectedShopInfo.active_bounties_count && selectedShopInfo.active_bounties_count > 0 ? (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
+                      Active Bounty
+                    </span>
+                  ) : null}
+                </div>
+                <h3 className="text-xl font-black text-white">{selectedShopInfo.name}</h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedShopInfo(null)}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                aria-label="Close modal"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Shop Details Content */}
+            <div className="py-4 space-y-4 text-xs">
+              {/* Rating & Reviews */}
+              <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
+                <div className="flex items-center gap-2">
+                  <Star className="w-4 h-4 text-amber-400 fill-current" />
+                  <span className="text-sm font-extrabold text-white">
+                    {selectedShopInfo.rating ? selectedShopInfo.rating.toFixed(1) : 'Unrated'}
+                  </span>
+                  <span className="text-slate-400">
+                    ({(selectedShopInfo.total_reviews || 0).toLocaleString()} reviews indexed)
+                  </span>
+                </div>
+                <span className="text-[11px] font-mono text-emerald-400 font-semibold">
+                  Proof-of-Review Ready
+                </span>
+              </div>
+
+              {/* Address */}
+              <div className="space-y-1">
+                <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  Location & Address:
+                </div>
+                <div className="flex items-start gap-2 p-3 rounded-xl bg-slate-950 border border-slate-800">
+                  <MapPin className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
+                  <div className="text-slate-200">
+                    {selectedShopInfo.address || 'Bangkok, Thailand'}
+                    <div className="text-[11px] text-slate-400 mt-0.5">
+                      {selectedShopInfo.city || 'กรุงเทพมหานคร'}, Thailand
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* GPS Coordinates & Verification Radius */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                    GPS Coordinates (Proof-of-Review Radius):
+                  </span>
+                  {selectedShopInfo.latitude && selectedShopInfo.longitude && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const coords = `${selectedShopInfo.latitude}, ${selectedShopInfo.longitude}`;
+                        navigator.clipboard.writeText(coords);
+                        setCopiedGps(true);
+                        setTimeout(() => setCopiedGps(false), 2000);
+                      }}
+                      className="text-[10px] text-orange-400 hover:text-orange-300 flex items-center gap-1 font-mono"
+                    >
+                      {copiedGps ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedGps ? 'Copied' : 'Copy GPS'}</span>
+                    </button>
+                  )}
+                </div>
+                <div className="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                  <div className="font-mono text-xs text-slate-300">
+                    Lat: {selectedShopInfo.latitude || '13.7563'}, Lng: {selectedShopInfo.longitude || '100.5018'}
+                  </div>
+                  <div className="text-[10px] text-slate-400 mt-1">
+                    Verified on Avalanche Fuji. Diners must be within 500m of this location to submit Proof-of-Review.
+                  </div>
+                </div>
+              </div>
+
+              {/* External Maps Links */}
+              {selectedShopInfo.google_map_url && (
+                <div>
+                  <a
+                    href={selectedShopInfo.google_map_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-orange-400 hover:text-orange-300 underline font-medium"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                    <span>Open in Google Maps</span>
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Modal Actions */}
+            <div className="pt-4 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <Link
+                href={`/customer?placeId=${selectedShopInfo.place_id}`}
+                onClick={() => setSelectedShopInfo(null)}
+                className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-center text-white bg-orange-600 hover:bg-orange-500 transition-colors shadow-sm flex items-center justify-center gap-1.5"
+              >
+                <Award className="w-4 h-4" />
+                <span>Write Review (Earn $TASTE)</span>
+              </Link>
+              <Link
+                href={`/owner?placeId=${selectedShopInfo.place_id}`}
+                onClick={() => setSelectedShopInfo(null)}
+                className="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-center text-amber-300 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors flex items-center justify-center gap-1.5"
+              >
+                <Store className="w-4 h-4 text-amber-400" />
+                <span>Merchant Hub / Claim</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

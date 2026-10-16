@@ -153,19 +153,20 @@ export default function JudgeDemoButton() {
         <button
           onClick={handleActivateAndFund}
           disabled={isFunding}
-          className="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 transition-colors shadow-sm"
+          className="relative inline-flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 transition-colors shadow-sm shrink-0"
         >
           {isFunding ? (
             <>
               <RefreshCw className="w-3.5 h-3.5 animate-spin text-slate-300" />
-              <span>Dispensing Faucet...</span>
+              <span className="hidden sm:inline">Dispensing...</span>
             </>
           ) : (
             <>
               <Zap className="w-3.5 h-3.5 text-amber-400" />
-              <span>Judge Demo</span>
+              <span className="hidden sm:inline">Judge Demo</span>
+              <span className="sm:hidden">Demo</span>
               <span className="px-1.5 py-0.2 rounded bg-slate-950 text-[10px] text-slate-300 border border-slate-700">
-                0.1 AVAX
+                0.1A
               </span>
             </>
           )}

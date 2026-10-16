@@ -182,28 +182,29 @@ export default function Navbar() {
           </div>
 
           {/* Action CTAs: Judge Demo, Wallet & Theme (most-right) */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             <JudgeDemoButton />
 
             {!isFuji && walletAddress && walletType === 'metamask' && (
               <button
                 onClick={handleSwitchToFuji}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all animate-pulse"
+                className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition-all animate-pulse shrink-0"
                 title="Click to switch MetaMask to Avalanche Fuji Testnet"
               >
                 <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
-                <span>Switch to Fuji</span>
+                <span className="hidden sm:inline">Switch to Fuji</span>
+                <span className="sm:hidden">Fuji</span>
               </button>
             )}
 
             {walletAddress ? (
-              <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-700/80 rounded-xl p-1 pr-2">
-                <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-slate-950 text-xs">
+              <div className="flex items-center gap-1 sm:gap-1.5 bg-slate-900 border border-slate-700/80 rounded-xl p-1 pr-1.5 sm:pr-2 shrink-0">
+                <div className="flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2 py-1 rounded-lg bg-slate-950 text-xs">
                   <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="font-mono text-[11px] text-emerald-300 font-semibold">
-                    {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                    {walletAddress.slice(0, 4)}...{walletAddress.slice(-3)}
                   </span>
-                  <span className="text-[10px] px-1 py-0.2 rounded bg-slate-800 text-slate-400 uppercase">
+                  <span className="text-[10px] px-1 py-0.2 rounded bg-slate-800 text-slate-400 uppercase hidden md:inline">
                     {walletType || 'Web3'}
                   </span>
                 </div>
@@ -219,10 +220,11 @@ export default function Navbar() {
               <button
                 onClick={handleConnectMetaMask}
                 disabled={isConnecting}
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 hover:bg-orange-500 text-white transition-colors"
+                className="flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 hover:bg-orange-500 text-white transition-colors shrink-0"
               >
                 <Wallet className="w-3.5 h-3.5 text-white" />
-                {isConnecting ? <span>Connecting...</span> : <span>Connect MetaMask</span>}
+                <span className="hidden sm:inline">{isConnecting ? 'Connecting...' : 'Connect MetaMask'}</span>
+                <span className="sm:hidden">{isConnecting ? '...' : 'Connect'}</span>
               </button>
             )}
 

@@ -1,11 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getPlaces } from '@/lib/services/places';
+import { getPlaces, getPlaceById } from '@/lib/services/places';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
+    const placeId = searchParams.get('placeId') || searchParams.get('place_id');
+    if (placeId) {
+      const place = await getPlaceById(placeId);
+      if (!place) {
+        return NextResponse.json(
+          { success: false, error: 'Place not found' },
+          { status: 404 }
+        );
+      }
+      return NextResponse.json({ success: true, data: place });
+    }
+
     const search = searchParams.get('search') || undefined;
     const city = searchParams.get('city') || undefined;
     const serviceType = searchParams.get('serviceType') || undefined;

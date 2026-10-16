@@ -46,7 +46,7 @@ export default function ThemeSelector() {
   ];
 
   return (
-    <div className="inline-flex items-center p-0.5 rounded-xl bg-slate-900 border border-slate-700/80 shadow-inner">
+    <div className="inline-flex items-center p-0.5 rounded-xl bg-slate-900 border border-slate-700/80 shadow-inner shrink-0 z-20">
       {themes.map((t) => {
         const Icon = t.icon;
         const isActive = currentTheme === t.id;
@@ -57,7 +57,7 @@ export default function ThemeSelector() {
             onClick={() => handleSelectTheme(t.id)}
             title={`${t.label} Theme`}
             aria-label={`${t.label} Theme`}
-            className={`p-1.5 rounded-lg transition-all flex items-center justify-center ${
+            className={`p-1.5 min-w-[28px] min-h-[28px] rounded-lg transition-all flex items-center justify-center cursor-pointer select-none touch-manipulation ${
               isActive
                 ? t.id === 'white'
                   ? 'bg-amber-100 text-amber-900 shadow-sm ring-1 ring-amber-400'
@@ -67,7 +67,7 @@ export default function ThemeSelector() {
                 : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
             }`}
           >
-            <Icon className="w-4 h-4" />
+            <Icon className="w-4 h-4 shrink-0" />
           </button>
         );
       })}

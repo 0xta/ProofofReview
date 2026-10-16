@@ -285,9 +285,9 @@ function CustomerContent() {
     }
   }, [selectedVenue]);
 
-  // Handle query params from Judge Hub / Quick Launchers (?placeId=...&opt=...)
+  // Handle query params from Judge Hub / Quick Launchers / Directory (?placeId=...&opt=...)
   useEffect(() => {
-    const paramPlaceId = searchParams.get('placeId');
+    const paramPlaceId = searchParams.get('placeId') || searchParams.get('place_id');
     const paramOpt = searchParams.get('opt');
 
     if (paramPlaceId) {
@@ -319,6 +319,26 @@ function CustomerContent() {
         } else if (paramOpt === 'voucher' || curated.recommendedOption === 'voucher') {
           setActiveTab('vouchers');
         }
+      } else {
+        // Fetch from 43k+ places database
+        fetch(`/api/places/${paramPlaceId}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.data) {
+              const p = data.data;
+              setSelectedVenue({
+                place_id: p.place_id,
+                name: p.name,
+                address: p.address || p.city || 'Bangkok, Thailand',
+                latitude: p.latitude || 13.7563,
+                longitude: p.longitude || 100.5018,
+                rating: p.rating || 4.5,
+                service_type: p.service_type || 'Restaurant',
+              });
+              setActiveTab('review');
+            }
+          })
+          .catch((err) => console.error('Failed to load venue from DB:', err));
       }
     }
   }, [searchParams]);
