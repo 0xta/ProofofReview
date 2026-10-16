@@ -46,7 +46,7 @@ export default function ThemeSelector() {
   ];
 
   return (
-    <div className="inline-flex items-center p-0.5 rounded-xl bg-slate-900/90 border border-slate-700/80 shadow-inner">
+    <div className="inline-flex items-center p-0.5 rounded-xl bg-slate-900 border border-slate-700/80 shadow-inner">
       {themes.map((t) => {
         const Icon = t.icon;
         const isActive = currentTheme === t.id;
@@ -55,19 +55,19 @@ export default function ThemeSelector() {
             key={t.id}
             type="button"
             onClick={() => handleSelectTheme(t.id)}
-            title={`Switch to ${t.label} theme`}
-            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold transition-all ${
+            title={`${t.label} Theme`}
+            aria-label={`${t.label} Theme`}
+            className={`p-1.5 rounded-lg transition-all flex items-center justify-center ${
               isActive
                 ? t.id === 'white'
-                  ? 'bg-white text-slate-900 shadow-md'
+                  ? 'bg-amber-100 text-amber-900 shadow-sm ring-1 ring-amber-400'
                   : t.id === 'warm'
-                  ? 'bg-amber-600 text-amber-50 shadow-md shadow-amber-600/30'
-                  : 'bg-orange-500 text-white shadow-md shadow-orange-500/30'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                  ? 'bg-amber-600 text-amber-50 shadow-sm shadow-amber-600/30 ring-1 ring-amber-400'
+                  : 'bg-orange-500 text-white shadow-sm shadow-orange-500/30'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
             }`}
           >
-            <Icon className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline text-[11px]">{t.label}</span>
+            <Icon className="w-4 h-4" />
           </button>
         );
       })}

@@ -183,10 +183,8 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Action CTAs: Theme, Judge Demo & Wallet */}
+          {/* Action CTAs: Judge Demo, Wallet & Theme (most-right) */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <ThemeSelector />
-
             <Link
               href="/judge"
               className="relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 hover:opacity-95 shadow-md shadow-pink-500/20 hover:shadow-pink-500/40 hover:scale-[1.02] transition-all"
@@ -238,6 +236,9 @@ export default function Navbar() {
                 {isConnecting ? <span>Connecting...</span> : <span>Connect MetaMask</span>}
               </button>
             )}
+
+            {/* Theme Selector (Most-Right Icon Toggle) */}
+            <ThemeSelector />
           </div>
         </div>
       </div>
