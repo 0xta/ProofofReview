@@ -12,6 +12,7 @@ body {
   background: var(--background);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 /* Custom scrollbar */
@@ -39,4 +40,163 @@ body {
 }
 .glow-avalanche {
   box-shadow: 0 0 25px -5px rgba(232, 65, 66, 0.4);
+}
+
+/* ========================================================
+   THEME STYLING OVERRIDES (White, Warm, Dark)
+   ======================================================== */
+
+/* --------------------------------------------------------
+   1. WHITE THEME (Clean, Crisp Light Theme)
+   -------------------------------------------------------- */
+html[data-theme="white"] {
+  color-scheme: light;
+  --background: #ffffff;
+  --foreground: #0f172a;
+}
+
+html[data-theme="white"] body {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+html[data-theme="white"] .bg-slate-950,
+html[data-theme="white"] .bg-slate-950\/80,
+html[data-theme="white"] .bg-slate-950\/60,
+html[data-theme="white"] .bg-slate-950\/90 {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+html[data-theme="white"] .bg-slate-900,
+html[data-theme="white"] .bg-slate-900\/90,
+html[data-theme="white"] .bg-slate-900\/80,
+html[data-theme="white"] .bg-slate-900\/60 {
+  background-color: #f1f5f9 !important;
+}
+
+html[data-theme="white"] .bg-slate-800,
+html[data-theme="white"] .bg-slate-800\/60,
+html[data-theme="white"] .bg-slate-800\/80 {
+  background-color: #e2e8f0 !important;
+}
+
+html[data-theme="white"] .border-slate-800,
+html[data-theme="white"] .border-slate-800\/80,
+html[data-theme="white"] .border-slate-700,
+html[data-theme="white"] .border-slate-700\/80 {
+  border-color: #cbd5e1 !important;
+}
+
+html[data-theme="white"] .text-white,
+html[data-theme="white"] .text-slate-100,
+html[data-theme="white"] .text-slate-200,
+html[data-theme="white"] .text-slate-300 {
+  color: #0f172a !important;
+}
+
+html[data-theme="white"] .text-slate-400,
+html[data-theme="white"] .text-slate-500 {
+  color: #475569 !important;
+}
+
+html[data-theme="white"] input,
+html[data-theme="white"] textarea,
+html[data-theme="white"] select {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+html[data-theme="white"] .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e2e8f0 !important;
+}
+
+html[data-theme="white"] ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html[data-theme="white"] ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+
+/* --------------------------------------------------------
+   2. WARM THEME (Cozy Bakery, Cafe & Gastronomy Sepia/Amber)
+   -------------------------------------------------------- */
+html[data-theme="warm"] {
+  color-scheme: light;
+  --background: #fdf8f0;
+  --foreground: #3b2314;
+}
+
+html[data-theme="warm"] body {
+  background-color: #fbf5eb !important;
+  color: #3b2314 !important;
+}
+
+html[data-theme="warm"] .bg-slate-950,
+html[data-theme="warm"] .bg-slate-950\/80,
+html[data-theme="warm"] .bg-slate-950\/60,
+html[data-theme="warm"] .bg-slate-950\/90 {
+  background-color: #fffaf2 !important;
+  color: #3b2314 !important;
+}
+
+html[data-theme="warm"] .bg-slate-900,
+html[data-theme="warm"] .bg-slate-900\/90,
+html[data-theme="warm"] .bg-slate-900\/80,
+html[data-theme="warm"] .bg-slate-900\/60 {
+  background-color: #f5ebe0 !important;
+}
+
+html[data-theme="warm"] .bg-slate-800,
+html[data-theme="warm"] .bg-slate-800\/60,
+html[data-theme="warm"] .bg-slate-800\/80 {
+  background-color: #e6ccb2 !important;
+}
+
+html[data-theme="warm"] .border-slate-800,
+html[data-theme="warm"] .border-slate-800\/80,
+html[data-theme="warm"] .border-slate-700,
+html[data-theme="warm"] .border-slate-700\/80 {
+  border-color: #ddb892 !important;
+}
+
+html[data-theme="warm"] .text-white,
+html[data-theme="warm"] .text-slate-100,
+html[data-theme="warm"] .text-slate-200,
+html[data-theme="warm"] .text-slate-300 {
+  color: #3b2314 !important;
+}
+
+html[data-theme="warm"] .text-slate-400,
+html[data-theme="warm"] .text-slate-500 {
+  color: #7f5539 !important;
+}
+
+html[data-theme="warm"] input,
+html[data-theme="warm"] textarea,
+html[data-theme="warm"] select {
+  background-color: #fffaf2 !important;
+  color: #3b2314 !important;
+  border-color: #dec3af !important;
+}
+
+html[data-theme="warm"] .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e6ccb2 !important;
+}
+
+html[data-theme="warm"] ::-webkit-scrollbar-track {
+  background: #f5ebe0;
+}
+html[data-theme="warm"] ::-webkit-scrollbar-thumb {
+  background: #ddb892;
+}
+
+/* --------------------------------------------------------
+   3. DARK THEME (Obsidian Cyberpunk / Slate 950)
+   -------------------------------------------------------- */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #020617;
+  --foreground: #f8fafc;
 }

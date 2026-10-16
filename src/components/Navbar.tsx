@@ -11,6 +11,7 @@ import {
   disconnectWallet,
   AVALANCHE_FUJI_PARAMS,
 } from '@/lib/wallet';
+import ThemeSelector from '@/components/ThemeSelector';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -182,8 +183,10 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Action CTAs: Judge Demo & Wallet */}
-          <div className="flex items-center gap-3">
+          {/* Action CTAs: Theme, Judge Demo & Wallet */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <ThemeSelector />
+
             <Link
               href="/judge"
               className="relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 hover:opacity-95 shadow-md shadow-pink-500/20 hover:shadow-pink-500/40 hover:scale-[1.02] transition-all"

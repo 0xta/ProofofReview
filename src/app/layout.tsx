@@ -15,7 +15,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var savedTheme = localStorage.getItem('tastechain_theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+              } catch (e) {}
+            `,
+          }}
+        />
+      </head>
       <body className="bg-slate-950 text-slate-100 flex flex-col min-h-screen antialiased selection:bg-orange-500 selection:text-white">
         <Navbar />
         <main className="flex-1">{children}</main>
