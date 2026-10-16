@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
-  Sparkles,
+  Zap,
   Coins,
   Copy,
   ExternalLink,
@@ -140,32 +140,32 @@ export default function JudgeDemoButton() {
       {burnerWallet ? (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-700 via-indigo-600 to-pink-600 hover:opacity-95 shadow-md shadow-purple-500/20 transition-all border border-purple-400/30"
+          className="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium text-slate-200 bg-slate-900 hover:bg-slate-800 transition-colors border border-slate-700"
         >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="hidden sm:inline">⚡ Judge:</span>
-          <span className="font-mono text-[11px] text-yellow-300">0.1 AVAX</span>
-          <span className="text-slate-400">•</span>
-          <span className="font-mono text-[11px] text-amber-300">10k $TASTE</span>
-          <ChevronDown className="w-3 h-3 text-purple-200" />
+          <span className="w-2 h-2 rounded-full bg-emerald-400" />
+          <span className="hidden sm:inline font-medium">Judge Demo:</span>
+          <span className="font-mono text-[11px] text-slate-300">0.1 AVAX</span>
+          <span className="text-slate-500">•</span>
+          <span className="font-mono text-[11px] text-amber-400">10k $TASTE</span>
+          <ChevronDown className="w-3 h-3 text-slate-400" />
         </button>
       ) : (
         <button
           onClick={handleActivateAndFund}
           disabled={isFunding}
-          className="relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 hover:opacity-95 shadow-md shadow-pink-500/20 hover:shadow-pink-500/40 hover:scale-[1.02] transition-all"
+          className="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-white bg-slate-800 hover:bg-slate-700 border border-slate-600 transition-colors shadow-sm"
         >
           {isFunding ? (
             <>
-              <RefreshCw className="w-3.5 h-3.5 animate-spin text-yellow-300" />
+              <RefreshCw className="w-3.5 h-3.5 animate-spin text-slate-300" />
               <span>Dispensing Faucet...</span>
             </>
           ) : (
             <>
-              <Sparkles className="w-3.5 h-3.5 animate-pulse text-yellow-300" />
-              <span>1-Click Judge Demo</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-black/40 text-[10px] text-yellow-300 border border-yellow-300/30">
-                FAUCET
+              <Zap className="w-3.5 h-3.5 text-amber-400" />
+              <span>Judge Demo</span>
+              <span className="px-1.5 py-0.2 rounded bg-slate-950 text-[10px] text-slate-300 border border-slate-700">
+                0.1 AVAX
               </span>
             </>
           )}
@@ -174,14 +174,14 @@ export default function JudgeDemoButton() {
 
       {/* Quick Action Dropdown Modal */}
       {isOpen && burnerWallet && (
-        <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-2xl bg-slate-900 border border-purple-500/40 shadow-2xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150 text-slate-100">
+        <div className="absolute right-0 mt-2 w-80 sm:w-96 rounded-xl bg-slate-900 border border-slate-700 shadow-xl p-4 z-50 animate-in fade-in zoom-in-95 duration-150 text-slate-100">
           <div className="flex items-center justify-between pb-3 border-b border-slate-800">
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-yellow-400" />
-              <span className="font-bold text-xs text-white">Judge Burner Sandbox Active</span>
+              <Zap className="w-4 h-4 text-amber-400" />
+              <span className="font-semibold text-xs text-white">Judge Sandbox Active</span>
             </div>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-semibold">
-              PRE-FUNDED
+            <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
+              Pre-funded
             </span>
           </div>
 

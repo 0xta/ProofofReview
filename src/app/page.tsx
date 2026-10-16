@@ -5,7 +5,6 @@ import Link from 'next/link';
 import {
   Flame,
   Search,
-  Sparkles,
   MapPin,
   Star,
   ShieldCheck,
@@ -125,63 +124,51 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100">
       {/* 1. HERO BANNER */}
-      <section className="relative overflow-hidden pt-12 pb-20 border-b border-slate-800">
-        <div className="absolute inset-0 bg-radial-gradient from-orange-500/10 via-transparent to-transparent pointer-events-none" />
+      <section className="relative pt-12 pb-16 border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          {/* Top Pill */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
-              <Flame className="w-3.5 h-3.5 fill-current" />
-              <span>U-Hackathon @ Flow Summit Bangkok 2026</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>ElevenLabs Voice AI Synthesizer</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <CheckCircle2 className="w-3.5 h-3.5" />
-              <span>43,649 Real Bangkok Venues</span>
+          {/* Status Tag */}
+          <div className="flex items-center justify-center mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-slate-900 text-slate-300 border border-slate-800">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              Avalanche Fuji (43113) • 43,649 Bangkok Eateries Indexed
             </span>
           </div>
 
           {/* Headline */}
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight sm:leading-none">
-              The AI-Powered & Trustless{' '}
-              <span className="bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
-                Gastronomy Protocol
-              </span>
+            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
+              Bangkok Food Reviews,{' '}
+              <span className="text-orange-500">Verified on Avalanche</span>
             </h1>
-            <p className="mt-5 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Verifiable restaurant reviews on Avalanche Fuji. Dual Proof-of-Review with Dining Receipt Slip OCR and Dynamic Shop QR check-ins, powered by ElevenLabs Thai Voice AI and 10,000 $TASTE daily mining emission.
+            <p className="mt-4 text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Earn $TASTE tokens for real dining receipts. Sybil-resistant Proof-of-Review protocol eliminating fake reviews and predatory platform commissions.
             </p>
 
             {/* CTAs */}
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link
                 href="/judge"
-                className="w-full sm:w-auto px-7 py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 hover:opacity-95 shadow-xl shadow-pink-500/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto px-6 py-3 rounded-lg font-semibold text-sm text-white bg-orange-600 hover:bg-orange-500 transition-colors flex items-center justify-center gap-2 shadow-sm"
               >
-                <Sparkles className="w-4 h-4 text-yellow-300 group-hover:rotate-12 transition-transform" />
-                <span>1-Click Judge Demo Mode</span>
-                <span className="px-2 py-0.5 rounded bg-black/40 text-[10px] text-yellow-300 border border-yellow-300/40">
+                <span>Judge Demo Console</span>
+                <span className="px-1.5 py-0.5 rounded bg-orange-700 text-[11px] font-mono text-orange-200">
                   0.1 AVAX + 10k $TASTE
                 </span>
               </Link>
 
               <a
                 href="#venues-explorer"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 transition-colors flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 rounded-lg font-medium text-sm bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 transition-colors flex items-center justify-center gap-2"
               >
-                <Compass className="w-4 h-4 text-orange-400" />
-                <span>Explore 43K+ Bangkok Venues</span>
+                <Compass className="w-4 h-4 text-slate-400" />
+                <span>Explore 43,649 Venues</span>
               </a>
 
               <Link
                 href="/owner"
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl font-semibold text-sm bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800 hover:border-slate-700 transition-colors flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 rounded-lg font-medium text-sm bg-slate-900/60 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-colors flex items-center justify-center gap-2"
               >
-                <Store className="w-4 h-4 text-amber-400" />
+                <Store className="w-4 h-4 text-slate-400" />
                 <span>Merchant Hub</span>
               </Link>
             </div>

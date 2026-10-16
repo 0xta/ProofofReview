@@ -8,7 +8,7 @@ import {
   Flame,
   RefreshCw,
   ArrowRight,
-  Sparkles,
+  Zap,
   CheckCircle2,
   XCircle,
   AlertCircle,
@@ -249,20 +249,20 @@ export default function AdminPage() {
 
           <Link
             href="/judge"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-xs font-semibold text-purple-300 hover:bg-purple-500/20"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-medium text-slate-300 hover:bg-slate-800 transition-colors"
           >
-            <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
-            <span>Judge 1-Click Faucet</span>
+            <Zap className="w-3.5 h-3.5 text-amber-400" />
+            <span>Judge Faucet</span>
           </Link>
         </div>
 
         {/* Hero Header */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-purple-950/30 border border-purple-500/40 mb-8">
+        <div className="p-6 sm:p-8 rounded-2xl bg-slate-900 border border-slate-800 mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-purple-400/10 text-purple-400 border border-purple-400/20 mb-3">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Governance & Protocol Administration (Phase 5 Verified)</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700 mb-3">
+                <ShieldCheck className="w-3.5 h-3.5 text-orange-400" />
+                <span>Governance & Protocol Administration (Phase 5)</span>
               </div>
               <h1 className="text-2xl sm:text-3xl font-black text-white">
                 Admin Command Center & Daily Mining Engine
@@ -392,12 +392,12 @@ export default function AdminPage() {
             </div>
 
             {/* 1-Click Manual Epoch Trigger Box (Built for Judges) */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-purple-950/40 via-slate-900 to-slate-900 border border-purple-500/40 relative overflow-hidden">
+            <div className="p-6 sm:p-8 rounded-2xl bg-slate-900 border border-slate-800 relative overflow-hidden">
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-purple-400/10 text-purple-300 border border-purple-400/30 mb-2">
-                    <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
-                    <span>Hackathon PoC Feature for Judges</span>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700 mb-2">
+                    <Zap className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Daily Mining Settlement</span>
                   </div>
                   <h3 className="text-xl sm:text-2xl font-black text-white">
                     1-Click Manual Daily Token Epoch Distribution
@@ -408,11 +408,11 @@ export default function AdminPage() {
 
                   <div className="mt-4 flex flex-wrap items-center gap-4 text-xs">
                     <div className="flex items-center gap-1.5 text-slate-300">
-                      <Calendar className="w-4 h-4 text-purple-400" />
+                      <Calendar className="w-4 h-4 text-slate-400" />
                       <span>Today&apos;s Epoch: <strong>{stats ? stats.todayEpochDate : '2026-10-16'}</strong></span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Clock className="w-4 h-4 text-purple-400" />
+                      <Clock className="w-4 h-4 text-slate-400" />
                       <span>Status: </span>
                       {stats?.isTodayEpochSettled ? (
                         <span className="text-emerald-400 font-bold">● SETTLED & DISTRIBUTED</span>
@@ -427,11 +427,11 @@ export default function AdminPage() {
                   <button
                     onClick={handleDistributeEpoch}
                     disabled={isDistributing || stats?.isTodayEpochSettled}
-                    className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-95 text-white text-sm font-black shadow-xl shadow-purple-600/30 disabled:opacity-40 disabled:pointer-events-none transition-all flex items-center gap-2"
+                    className="px-6 py-3 rounded-lg bg-orange-600 hover:bg-orange-500 text-white text-sm font-semibold disabled:opacity-40 disabled:pointer-events-none transition-colors flex items-center gap-2 shadow-sm"
                   >
                     {isDistributing ? (
                       <>
-                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <RefreshCw className="w-4 h-4 animate-spin text-slate-300" />
                         <span>Settling 10,000 $TASTE Epoch...</span>
                       </>
                     ) : stats?.isTodayEpochSettled ? (
@@ -441,7 +441,7 @@ export default function AdminPage() {
                       </>
                     ) : (
                       <>
-                        <Sparkles className="w-4 h-4 text-yellow-300" />
+                        <Zap className="w-4 h-4 text-amber-300" />
                         <span>Distribute 10,000 $TASTE Epoch</span>
                       </>
                     )}

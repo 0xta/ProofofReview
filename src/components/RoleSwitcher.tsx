@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Award, Store, ShieldCheck, Sparkles, Utensils } from 'lucide-react';
+import { Award, Store, ShieldCheck, Zap, Utensils } from 'lucide-react';
 
 export default function RoleSwitcher() {
   const pathname = usePathname();
@@ -14,7 +14,6 @@ export default function RoleSwitcher() {
       label: 'Diner Customer',
       icon: Award,
       href: '/customer',
-      activeColor: 'from-orange-500 to-amber-500 text-white',
       badge: '2-Option Reviews & 80/20 Burn',
     },
     {
@@ -22,7 +21,6 @@ export default function RoleSwitcher() {
       label: 'Merchant Hub',
       icon: Store,
       href: '/owner',
-      activeColor: 'from-amber-600 to-orange-600 text-white',
       badge: 'ElevenLabs Voice & QR Stand',
     },
     {
@@ -30,15 +28,13 @@ export default function RoleSwitcher() {
       label: 'Protocol Admin',
       icon: ShieldCheck,
       href: '/admin',
-      activeColor: 'from-purple-600 to-indigo-600 text-white',
       badge: 'DBD KYC & 1-Click Mining',
     },
     {
       id: 'judge',
       label: '1-Click Judge',
-      icon: Sparkles,
+      icon: Zap,
       href: '/judge',
-      activeColor: 'from-pink-600 to-rose-600 text-white',
       badge: '0.1 AVAX + 10k TASTE Faucet',
     },
   ];
@@ -67,8 +63,8 @@ export default function RoleSwitcher() {
                 href={r.href}
                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all ${
                   isActive
-                    ? `bg-gradient-to-r ${r.activeColor} shadow-md shadow-orange-500/20 scale-[1.02]`
-                    : 'bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700/80 border border-slate-700/50'
+                    ? 'bg-orange-600 text-white shadow-sm'
+                    : 'bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 border border-slate-700'
                 }`}
                 title={r.badge}
               >

@@ -11,7 +11,7 @@ import {
   Search,
   MapPin,
   Star,
-  Sparkles,
+  Zap,
   ArrowRight,
   ExternalLink,
   CheckCircle2,
@@ -107,9 +107,9 @@ function OwnerContent() {
           <div className="flex items-center gap-2">
             <Link
               href="/judge"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-95 shadow-md shadow-purple-500/20"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs font-medium text-slate-300 hover:bg-slate-800 transition-colors"
             >
-              <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+              <Zap className="w-3.5 h-3.5 text-amber-400" />
               <span>Judge Testing Hub</span>
             </Link>
           </div>

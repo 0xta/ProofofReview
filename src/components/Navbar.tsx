@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Utensils, Award, Store, ShieldCheck, Wallet, Sparkles, ExternalLink, LogOut, AlertTriangle } from 'lucide-react';
+import { Utensils, Award, Store, ShieldCheck, Wallet, ExternalLink, LogOut, AlertTriangle } from 'lucide-react';
 import {
   connectMetaMaskWallet,
   switchToAvalancheFuji,
@@ -219,7 +219,7 @@ export default function Navbar() {
               <button
                 onClick={handleConnectMetaMask}
                 disabled={isConnecting}
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-orange-500 to-amber-500 hover:opacity-95 text-white shadow-md shadow-orange-500/20 transition-all"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-orange-600 hover:bg-orange-500 text-white transition-colors"
               >
                 <Wallet className="w-3.5 h-3.5 text-white" />
                 {isConnecting ? <span>Connecting...</span> : <span>Connect MetaMask</span>}

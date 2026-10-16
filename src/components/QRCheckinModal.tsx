@@ -9,7 +9,6 @@ import {
   Award,
   CheckCircle2,
   MapPin,
-  Sparkles,
   RefreshCw,
   Coins,
 } from 'lucide-react';
@@ -146,7 +145,7 @@ export default function QRCheckinModal({
               </div>
 
               {/* ElevenLabs Voice AI Player Card */}
-              <div className="p-5 rounded-2xl bg-gradient-to-br from-purple-950/40 via-slate-950 to-slate-950 border border-purple-500/30 space-y-3">
+              <div className="p-5 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Volume2 className="w-4 h-4 text-purple-400" />

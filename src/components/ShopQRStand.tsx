@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { QrCode, Download, ShieldCheck, Printer, RefreshCw, Smartphone, Volume2, Sparkles, CheckCircle2 } from 'lucide-react';
+import { QrCode, Download, ShieldCheck, Printer, RefreshCw, Smartphone, Volume2, CheckCircle2 } from 'lucide-react';
 
 interface ShopQRStandProps {
   placeId: string;
@@ -126,9 +126,9 @@ export default function ShopQRStand({
 
           {/* Call to Action Badge */}
           <div className="space-y-1">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-orange-100 text-orange-700 border border-orange-200">
-              <Sparkles className="w-3.5 h-3.5 text-orange-600" />
-              <span>Scan to Review & Hear AI Greeting</span>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-100 text-orange-700 border border-orange-200">
+              <Volume2 className="w-3.5 h-3.5 text-orange-600" />
+              <span>Scan to Review & Hear Greeting</span>
             </div>
             <p className="text-[10px] text-slate-400">
               Earn 3 $TASTE Epoch Points + Instant Thai Audio
@@ -179,10 +179,10 @@ export default function ShopQRStand({
             {onSimulateCheckin && qrData && (
               <button
                 onClick={() => onSimulateCheckin(qrData.nonce)}
-                className="w-full py-3 px-4 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-orange-500 to-red-600 hover:opacity-95 shadow-lg shadow-orange-500/20 transition-all flex items-center justify-center gap-2"
+                className="w-full py-3 px-4 rounded-lg text-xs font-semibold text-white bg-orange-600 hover:bg-orange-500 transition-colors flex items-center justify-center gap-2 shadow-sm"
               >
                 <Smartphone className="w-4 h-4" />
-                <span>Simulate In-Store Phone Check-in Now</span>
+                <span>Simulate In-Store Phone Check-in</span>
               </button>
             )}
           </div>
