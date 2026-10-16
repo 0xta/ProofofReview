@@ -371,14 +371,14 @@ export default function JudgePage() {
 
                 <div className="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
                   <Link
-                    href={`/customer`}
+                    href={`/customer?placeId=${venue.id}&opt=${venue.recommendedOption}`}
                     className="flex-1 py-2 px-3 rounded-xl text-center text-xs font-bold bg-orange-500 hover:bg-orange-600 text-white shadow-md shadow-orange-500/20 transition-all"
                   >
-                    Test as Diner
+                    Test as Diner ({venue.recommendedOption === 'option1' ? 'Slip' : venue.recommendedOption === 'option2' ? 'QR' : 'Voucher'})
                   </Link>
 
                   <Link
-                    href={`/owner`}
+                    href={`/owner?placeId=${venue.id}`}
                     className="flex-1 py-2 px-3 rounded-xl text-center text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-all"
                   >
                     Test as Owner

@@ -47,6 +47,16 @@ async function runPhase6Tests() {
     assert(thongsmith.activePromo.burnAmount === 159.2, `Venue 3 enforces 80% deflationary burn (159.2 $TASTE)`);
     assert(thongsmith.activePromo.merchantAmount === 39.8, `Venue 3 remits 20% to merchant (39.8 $TASTE)`);
 
+    // Verify venues exist in database
+    const place1Check = await pool.query('SELECT name FROM places WHERE place_id = $1', [jeho.id]);
+    assert(place1Check.rows.length === 1, `Venue 1 (${jeho.nameEn}) indexed in 43k+ places database`);
+
+    const place2Check = await pool.query('SELECT name FROM places WHERE place_id = $1', [faitalu.id]);
+    assert(place2Check.rows.length === 1, `Venue 2 (${faitalu.nameEn}) indexed in 43k+ places database`);
+
+    const place3Check = await pool.query('SELECT name FROM places WHERE place_id = $1', [thongsmith.id]);
+    assert(place3Check.rows.length === 1, `Venue 3 (${thongsmith.nameEn}) indexed in 43k+ places database`);
+
     // ----------------------------------------------------
     // 2. Testing 1-Click Judge Dual Faucet (DB & Logic)
     // ----------------------------------------------------

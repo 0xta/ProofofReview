@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import {
   Store,
   Volume2,
@@ -29,13 +30,22 @@ interface Place {
   service_type: string | null;
 }
 
-export default function OwnerPortalPage() {
+function OwnerContent() {
+  const searchParams = useSearchParams();
   const [selectedPlaceId, setSelectedPlaceId] = useState<string>('ChIJgz60UgCf4jARR26CSkBTLqU'); // Default: Baobao.. Bar Sathorn
   const [venue, setVenue] = useState<Place | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Place[]>([]);
   const [activeTab, setActiveTab] = useState<'voice' | 'qr' | 'kyc'>('voice');
   const [simulatingNonce, setSimulatingNonce] = useState<string | null>(null);
+
+  // Sync placeId from query params if passed
+  useEffect(() => {
+    const paramPlaceId = searchParams.get('placeId');
+    if (paramPlaceId) {
+      setSelectedPlaceId(paramPlaceId);
+    }
+  }, [searchParams]);
 
   // Fetch venue details
   useEffect(() => {
@@ -304,5 +314,19 @@ export default function OwnerPortalPage() {
         />
       )}
     </div>
+  );
+}
+
+export default function OwnerPortalPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-slate-950 p-12 text-center text-slate-400">
+          Loading Merchant Hub...
+        </div>
+      }
+    >
+      <OwnerContent />
+    </Suspense>
   );
 }

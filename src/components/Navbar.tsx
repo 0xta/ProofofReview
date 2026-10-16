@@ -12,6 +12,7 @@ import {
   AVALANCHE_FUJI_PARAMS,
 } from '@/lib/wallet';
 import ThemeSelector from '@/components/ThemeSelector';
+import JudgeDemoButton from '@/components/JudgeDemoButton';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -185,16 +186,7 @@ export default function Navbar() {
 
           {/* Action CTAs: Judge Demo, Wallet & Theme (most-right) */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/judge"
-              className="relative inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 hover:opacity-95 shadow-md shadow-pink-500/20 hover:shadow-pink-500/40 hover:scale-[1.02] transition-all"
-            >
-              <Sparkles className="w-3.5 h-3.5 animate-pulse text-yellow-300" />
-              <span>1-Click Judge Demo</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-black/40 text-[10px] text-yellow-300 border border-yellow-300/30">
-                FAUCET
-              </span>
-            </Link>
+            <JudgeDemoButton />
 
             {!isFuji && walletAddress && walletType === 'metamask' && (
               <button

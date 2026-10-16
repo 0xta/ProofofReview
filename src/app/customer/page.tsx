@@ -1,7 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { CURATED_JUDGE_VENUES } from '@/data/seed-venues';
 import {
   Award,
   Receipt,
@@ -72,7 +74,8 @@ interface Promotion {
   min_spend_thb: number;
 }
 
-export default function CustomerPage() {
+function CustomerContent() {
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<'review' | 'rewards' | 'vouchers'>('review');
 
   // Wallet State
@@ -281,6 +284,44 @@ export default function CustomerPage() {
         .catch(() => {});
     }
   }, [selectedVenue]);
+
+  // Handle query params from Judge Hub / Quick Launchers (?placeId=...&opt=...)
+  useEffect(() => {
+    const paramPlaceId = searchParams.get('placeId');
+    const paramOpt = searchParams.get('opt');
+
+    if (paramPlaceId) {
+      const curated = CURATED_JUDGE_VENUES.find((v) => v.id === paramPlaceId);
+      if (curated) {
+        setSelectedVenue({
+          place_id: curated.id,
+          name: curated.name,
+          address: curated.area,
+          latitude: curated.sampleQr.lat,
+          longitude: curated.sampleQr.lng,
+          rating: curated.rating,
+          service_type: curated.category,
+        });
+
+        if (paramOpt === 'option1' || curated.recommendedOption === 'option1') {
+          setVerificationTier(1);
+          setCustomSlipRef(curated.sampleReceipt.refNumber);
+          setCustomAmountThb(curated.sampleReceipt.amount.toString());
+          setReceiptSlip(curated.sampleReceipt.slipUrl);
+          setFoodPhoto(curated.sampleReceipt.foodPhotoUrl);
+          setReviewText(`Signature ${curated.highlightDish} was absolutely incredible! Real authentic dining experience.`);
+          setActiveTab('review');
+        } else if (paramOpt === 'option2' || curated.recommendedOption === 'option2') {
+          setVerificationTier(2);
+          setFoodPhoto(curated.sampleReceipt.foodPhotoUrl);
+          setReviewText(`In-store visit at ${curated.name} - sensational food and hospitality.`);
+          setActiveTab('review');
+        } else if (paramOpt === 'voucher' || curated.recommendedOption === 'voucher') {
+          setActiveTab('vouchers');
+        }
+      }
+    }
+  }, [searchParams]);
 
   // Fetch rewards when entering rewards tab or wallet updates
   useEffect(() => {
@@ -1311,5 +1352,19 @@ export default function CustomerPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function CustomerPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-slate-950 p-12 text-center text-slate-400">
+          Loading Diner Action Center...
+        </div>
+      }
+    >
+      <CustomerContent />
+    </Suspense>
   );
 }
