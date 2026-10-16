@@ -78,14 +78,20 @@ export default function JudgePage() {
     <div className="min-h-screen bg-slate-950 text-slate-100 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb & Hackathon Tag */}
-        <div className="flex items-center gap-2 text-xs text-slate-400 mb-6">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mb-6">
           <Link href="/" className="hover:text-orange-400">Home</Link>
           <span>/</span>
           <span className="text-white font-medium">Judge Testing Hub</span>
-          <span className="ml-auto inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
-            <Flame className="w-3.5 h-3.5 fill-current" />
-            <span>Avalanche Fuji Testnet (43113)</span>
-          </span>
+          <div className="ml-auto flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>U-Hackathon @ Flow Summit Bangkok 2026</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
+              <Flame className="w-3.5 h-3.5 fill-current" />
+              <span>Avalanche Fuji (43113)</span>
+            </span>
+          </div>
         </div>
 
         {/* Header Banner */}
@@ -95,13 +101,16 @@ export default function JudgePage() {
           <div className="relative z-10 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-yellow-400/10 text-yellow-400 border border-yellow-400/20 mb-4">
               <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-spin" />
-              <span>1-Click Hackathon Evaluation Suite</span>
+              <span>Flow Summit Bangkok 2026 • 24-Hour Hackathon</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
               Judge Evaluation Hub & Dual Faucet
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
-              Welcome, Hackathon Judges! This dedicated testing center provides an instantaneous burner wallet loaded with <strong>0.1 Fuji AVAX</strong> (gas) and <strong>10,000 $TASTE</strong> (platform token) so you can test all diner and merchant workflows in seconds without importing external funds.
+            <p className="mt-3 text-sm text-slate-300 leading-relaxed">
+              <strong>U-Hackathon runs inside Flow Summit Bangkok 2026</strong>, a two-day summit on the future of finance and the future of community. You get a hall of your own, 24 hours on the clock, mentors on the floor. Get the best out of your allocated time. Then you demo on the stage.
+            </p>
+            <p className="mt-2 text-xs text-slate-400 leading-relaxed">
+              This dedicated testing center equips judges with an instantaneous burner wallet loaded with <strong>0.1 Fuji AVAX</strong> (gas) and <strong>10,000 $TASTE</strong> (platform token) so you can evaluate all diner and merchant workflows in seconds without importing external funds.
             </p>
           </div>
 
@@ -206,7 +215,7 @@ export default function JudgePage() {
                 </div>
                 <h3 className="text-base font-bold text-white">Test Proof of Review & DB Rewards</h3>
                 <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">
-                  Submit a review for any of the 43,649 Bangkok venues. Test <strong>Option 1 (Slip OCR)</strong> to see the AI receipt analysis, or <strong>Option 2 (Shop QR)</strong> to hear the synthesized Thai ElevenLabs voice greeting. Rewards accumulate automatically in the database accumulator.
+                  Submit a review for any of the 43,649 Bangkok venues. Test <strong>Option 1 (Dining Receipt Slip OCR)</strong> to see the AI receipt analysis, or <strong>Option 2 (Shop QR)</strong> to hear the synthesized Thai ElevenLabs voice greeting. Rewards accumulate automatically in the database accumulator.
                 </p>
               </div>
               <Link

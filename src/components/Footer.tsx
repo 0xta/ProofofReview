@@ -6,8 +6,8 @@ export default function Footer() {
   const sponsors = [
     {
       name: 'U-Topia',
-      role: 'Web3 Entertainment, Gamification & RWA Ecosystem',
-      desc: 'Powering consumer engagement, Web3 loyalty programs, and real-world asset tokenization for gastronomy merchants across Southeast Asia.',
+      role: 'All-in-One Digital Asset & Cross-Chain Wallet',
+      desc: 'U-Topia is built around you, bringing together digital assets, payments, and cross-chain access into one seamless, all-in-one wallet.',
       color: 'from-blue-500 to-indigo-600',
       tag: 'Ecosystem Partner',
     },
@@ -26,18 +26,18 @@ export default function Footer() {
       tag: 'L1 Blockchain',
     },
     {
-      name: 'U-Bot',
-      role: 'Automated Web3 Trading & Social Bot',
-      desc: 'Enables autonomous community engagement, decentralized intelligence feeds, and automated micro-trading liquidity management.',
+      name: 'u.bot',
+      role: 'AI Assistant for Vision, Code & Content Creation',
+      desc: 'u.bot is an AI assistant that can read your photos, draw images, build apps and write documents you can download.',
       color: 'from-emerald-500 to-teal-600',
-      tag: 'Community Bot',
+      tag: 'AI Assistant',
     },
     {
       name: 'Tokenomist',
-      role: 'Dynamic Tokenomics & Algorithmic Burn Architect',
-      desc: 'Architect of the 10,000 $TASTE daily mining emission schedule, 80/20 deflationary burn on vouchers, and merchant liquidity incentives.',
+      role: 'Token Unlocks & Supply Schedules Platform',
+      desc: 'Tokenomist Free gives you access to the essential tools for exploring token unlocks and supply schedules. Track upcoming unlock events, view project pages, and stay informed on tokenomics fundamentals, all in one place.',
       color: 'from-amber-500 to-yellow-600',
-      tag: 'Tokenomics Advisor',
+      tag: 'Tokenomics Platform',
     },
   ];
 
@@ -87,11 +87,11 @@ export default function Footer() {
             <div>
               <div className="flex items-center gap-2 text-xs font-semibold text-orange-400 mb-2">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Hackathon PoC Live Sandbox</span>
+                <span>U-Hackathon @ Flow Summit Bangkok 2026</span>
               </div>
-              <h3 className="text-lg font-bold text-white">Avalanche Hackathon 2026</h3>
+              <h3 className="text-lg font-bold text-white">Flow Summit Bangkok 2026</h3>
               <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Experience full trustless Proof-of-Review with instantaneous 0.1 AVAX + 10,000 $TASTE dual faucet testing on Fuji C-Chain.
+                U-Hackathon runs inside Flow Summit Bangkok 2026, a two-day summit on the future of finance and the future of community. You get a hall of your own, 24 hours on the clock, mentors on the floor. Get the best out of your allocated time. Then you demo on the stage.
               </p>
             </div>
             <Link

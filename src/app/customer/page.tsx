@@ -22,17 +22,17 @@ export default function CustomerPreviewPage() {
 
           <h1 className="text-3xl font-black text-white">Diner Proof-of-Review & Reward Hub</h1>
           <p className="mt-3 text-sm text-slate-300 leading-relaxed">
-            Welcome, Diner! In Phase 4, you can submit verified restaurant reviews using either <strong>Option 1 (PromptPay Slip OCR)</strong> or <strong>Option 2 (Shop QR Check-in)</strong>. All earned tokens accumulate securely in our database so you can batch-claim them to your wallet at any time.
+            Welcome, Diner! In Phase 4, you can submit verified restaurant reviews using either <strong>Option 1 (Dining Receipt Slip OCR)</strong> or <strong>Option 2 (Shop QR Check-in)</strong>. All earned tokens accumulate securely in our database so you can batch-claim them to your wallet at any time.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-800">
               <div className="text-orange-400 font-bold text-xs flex items-center gap-2 mb-1">
                 <Receipt className="w-4 h-4" />
-                <span>Option 1: Payment Slip OCR</span>
+                <span>Option 1: Dining Receipt Slip OCR</span>
               </div>
               <p className="text-xs text-slate-400">
-                GPS within 100m, food photo perceptual hash, and PromptPay receipt verification via OpenAI Vision.
+                GPS within 100m, food photo perceptual hash, and dining receipt slip verification via OpenAI Vision.
               </p>
             </div>
 

@@ -71,11 +71,11 @@ Every phase follows a strict 5-step lifecycle ensuring high software quality, us
   - Live Platform Statistics (36,369+ F&B places, verified reviews count, total $TASTE emission, active bounties).
   - Prominent CTA Link to **Judge Guide & Interactive Tour (`/judge`)**.
   - **5 Platform Sponsors & Partners Section:**
-    1. **U-Topia:** Web3 Entertainment, Gamification & Real-world Asset (RWA) Ecosystem
+    1. **U-Topia:** U-Topia is built around you, bringing together digital assets, payments, and cross-chain access into one seamless, all-in-one wallet.
     2. **ElevenLabs:** Generative Voice AI สังเคราะห์เสียงต้อนรับและขอบคุณภาษาไทย 3 สไตล์ต่อร้าน
-    3. **Avalanche C-Chain:** บล็อกเชนความเร็วสูง สำหรับ Smart Contracts, Escrow และ Micro-rewards
-    4. **U-Bot:** Automated Web3 Trading & Social Community Intelligence Bot
-    5. **Tokenomist:** ผู้ออกแบบกลไก Dynamic Tokenomics, 80/20 Burn และ Mining Emission
+    3. **Avalanche C-Chain:** บล็อกเชนความเร็วสูง สำหรับ Smart Contracts, Escrow และ Micro-rewards (Fuji Testnet 43113)
+    4. **u.bot:** u.bot is an AI assistant that can read your photos, draw images, build apps and write documents you can download.
+    5. **Tokenomist:** Tokenomist Free gives you access to the essential tools for exploring token unlocks and supply schedules. Track upcoming unlock events, view project pages, and stay informed on tokenomics fundamentals, all in one place.
 - Implement **Judge Guide & Interactive Command Center Page (`/judge`)**:
   - ศูนย์กลางคู่มือและสถานีทดลองฟังก์ชันสำหรับกรรมการ (Customer, Owner, Admin Sandbox)
   - เชื่อมโยงกับปุ่มใน Navbar และ Home Page
@@ -210,9 +210,9 @@ git push origin main
 
 #### Objectives
 - Implement Customer Review submission modal supporting **2 distinct Proof Options**:
-  - **Option 1 (Slip Proof):** GPS ($\le 100\text{m}$) + Food Photo (pHash) + PromptPay Receipt (OpenAI Vision `gpt-4o-mini`) + Rating (1-5) & Message.
+  - **Option 1 (Slip Proof):** GPS ($\le 100\text{m}$) + Food Photo (pHash) + Dining Receipt Slip (OpenAI Vision `gpt-4o-mini`) + Rating (1-5) & Message.
   - **Option 2 (Shop QR Proof):** GPS ($\le 100\text{m}$) + Food Photo (pHash) + Scan Shop QR Code + Rating (1-5) & Message.
-- OpenAI Vision OCR extraction for PromptPay receipts: `bank_name`, `amount_thb`, `transaction_date`, `transaction_time`, `transaction_ref_id`.
+- OpenAI Vision OCR extraction for dining receipt slips: `venue_name`, `amount_thb`, `transaction_date`, `transaction_time`, `transaction_ref_id`.
 - Compute `SHA-256(transaction_ref_id)` for zero-replay verification.
 - Perceptual hash (`pHash`) on food photos to prevent reused imagery.
 - Enforce **Pioneer 2x Multiplier**: First 3 reviewers of each venue receive **2x activity points** toward the daily 10,000 `$TASTE` pool.
@@ -231,7 +231,7 @@ git push origin main
 #### Automated Verification & Test Strategy
 | Test Case | Description | Expected Result |
 | :--- | :--- | :--- |
-| **T4.1 Option 1 (Slip)** | Submit valid GPS + Food + PromptPay slip | OCR succeeds, points awarded based on bill amount |
+| **T4.1 Option 1 (Slip)** | Submit valid GPS + Food + Dining Receipt slip | OCR succeeds, points awarded based on bill amount |
 | **T4.2 Option 2 (Shop QR)** | Submit valid GPS + Food + Scanned Shop QR | QR validated, 3 points awarded + ElevenLabs audio triggers |
 | **T4.3 Anti-Replay** | Resubmit identical slip ref ID | Immediate rejection with `Slip already used` |
 | **T4.4 DB Reward Storage** | Reviewer completes review / epoch settled | Reward credited to DB `customer_claimable_rewards` |
@@ -240,7 +240,7 @@ git push origin main
 
 #### User Interactive Checkpoint (ให้ผู้ใช้ทดลองใช้งาน)
 1. เปิดหน้า `/place/[placeId]` กดปุ่ม **"✍️ เขียนรีวิว & ยืนยันสิทธิ์"**
-2. **ทดสอบ Option 1:** อัปโหลดรูปอาหาร + สลิป PromptPay ตัวอย่าง ดูการสกัด OCR ยอดเงินและวันเวลา
+2. **ทดสอบ Option 1:** อัปโหลดรูปอาหาร + สลิปใบเสร็จรับเงิน (Receipt Slip) ตัวอย่าง ดูการสกัด OCR ยอดเงินและวันเวลา
 3. **ทดสอบ Option 2:** อัปโหลดรูปอาหาร + เลือกสแกน Shop QR Code และฟังเสียงขอบคุณอัตโนมัติ
 4. **ทดสอบ Claim Reward:** ตรวจดูยอดเหรียญสะสมในหน้า `/profile` หรือ `/mining` แล้วทดลองกดปุ่ม Claim
 5. **ทดสอบ Redeem Voucher:** นำเหรียญไปกดแลกเกี๊ยวซ่า 199 $TASTE ดูการตัดยอดและ Burn 20%
@@ -327,7 +327,7 @@ git push origin main
   - Faucet service auto-airdropping **0.1 Fuji AVAX** (ค่าแก๊ส) และ **10,000 $TASTE** (Platform Tokens) จากกระเป๋าสำรองส่วนกลาง
   - ให้กรรมการมีโทเค็นพร้อมทดลองสร้างแคมเปญ Bounty (ฝากเหรียญ), ซื้อโปรโมชั่น, หรือแลก Voucher อาหารฟรีได้ทันที
   - Quick launcher to test pre-configured venues (*Ban That Thong* & *Ari*).
-  - Pre-filled sample PromptPay slip & sample Shop QR for instant testing.
+  - Pre-filled sample receipt slip & sample Shop QR for instant testing.
 - Polish DaisyUI Dark & Coffee theme visuals across all pages.
 - Execute full end-to-end automated and manual user testing.
 

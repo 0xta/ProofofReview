@@ -132,7 +132,7 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-500/10 text-red-400 border border-red-500/20">
               <Flame className="w-3.5 h-3.5 fill-current" />
-              <span>Avalanche C-Chain Hackathon 2026</span>
+              <span>U-Hackathon @ Flow Summit Bangkok 2026</span>
             </span>
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/10 text-purple-400 border border-purple-500/20">
               <Sparkles className="w-3.5 h-3.5" />
@@ -153,7 +153,7 @@ export default function HomePage() {
               </span>
             </h1>
             <p className="mt-5 text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">
-              Verifiable restaurant reviews on Avalanche Fuji. Dual Proof-of-Review with PromptPay Slip OCR and Dynamic Shop QR check-ins, powered by ElevenLabs Thai Voice AI and 10,000 $TASTE daily mining emission.
+              Verifiable restaurant reviews on Avalanche Fuji. Dual Proof-of-Review with Dining Receipt Slip OCR and Dynamic Shop QR check-ins, powered by ElevenLabs Thai Voice AI and 10,000 $TASTE daily mining emission.
             </p>
 
             {/* CTAs */}
@@ -269,12 +269,12 @@ export default function HomePage() {
                     <Receipt className="w-6 h-6" />
                   </div>
                   <span className="px-3 py-1 rounded-full text-xs font-semibold bg-orange-500/20 text-orange-400 border border-orange-500/30">
-                    Option 1: Payment Verification
+                    Option 1: Receipt Slip Verification
                   </span>
                 </div>
-                <h3 className="text-xl font-bold text-white">PromptPay Slip OCR Proof</h3>
+                <h3 className="text-xl font-bold text-white">Dining Receipt Slip OCR Proof</h3>
                 <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  Best for full verification with exact spend validation. Analyzes PromptPay or credit card receipts against venue details.
+                  Best for full verification with exact spend validation. Analyzes dining receipt slips against venue details.
                 </p>
 
                 <ul className="mt-6 space-y-3 text-xs text-slate-300">
@@ -288,11 +288,11 @@ export default function HomePage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
-                    <span><strong>AI Slip OCR Extraction:</strong> OpenAI Vision extracts date, amount (THB), and merchant name.</span>
+                    <span><strong>AI Receipt Slip OCR Extraction:</strong> OpenAI Vision extracts date, amount (THB), and venue name.</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-4 h-4 text-orange-400 shrink-0 mt-0.5" />
-                    <span><strong>SHA-256 Anti-Replay:</strong> Cryptographic slip hash prevents duplicate receipt claims.</span>
+                    <span><strong>SHA-256 Anti-Replay:</strong> Cryptographic receipt slip hash prevents duplicate claims.</span>
                   </li>
                 </ul>
               </div>
@@ -423,7 +423,7 @@ export default function HomePage() {
                     </div>
                     <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
                       <div className="text-orange-400 font-bold text-xs mb-1">2. Submit Proof</div>
-                      <div className="text-[11px] text-slate-400">Option 1 (Slip OCR) or Option 2 (Shop QR + Voice Greeting).</div>
+                      <div className="text-[11px] text-slate-400">Option 1 (Receipt Slip OCR) or Option 2 (Shop QR + Voice Greeting).</div>
                     </div>
                     <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
                       <div className="text-orange-400 font-bold text-xs mb-1">3. Asynchronous Claim</div>

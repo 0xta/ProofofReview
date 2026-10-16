@@ -28,16 +28,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Responsive, English-First Home Page (`src/app/page.tsx`) featuring:
   - Hero banner with quick links to 1-Click Judge Demo, Venue Explorer, and Merchant Hub.
   - Live telemetry counters (43,649 Bangkok venues, 10,000 $TASTE daily mining emission).
-  - Detailed side-by-side explanation of 2-Option Proof-of-Review (Slip OCR vs Shop QR + Voice AI).
+  - Detailed side-by-side explanation of 2-Option Proof-of-Review (Dining Receipt Slip OCR vs Shop QR + Voice AI).
   - Interactive 3 User Role flow switcher (`Customer`, `Restaurant Owner`, `Admin Governance`).
   - Live Bangkok Venue Explorer with instant search and category filters.
-- Dedicated `/judge` Evaluation Hub (`src/app/judge/page.tsx`) with 1-click dual burner faucet interface (0.1 AVAX + 10,000 $TASTE), 4-stage guided testing checklist, and smart contract specifications.
+- Dedicated `/judge` Evaluation Hub (`src/app/judge/page.tsx`) with 1-click dual burner faucet interface (0.1 AVAX + 10,000 $TASTE), 4-stage guided testing checklist, and smart contract specifications for **U-Hackathon @ Flow Summit Bangkok 2026**.
 - Official 5 Platform Sponsors Showcase in `src/components/Footer.tsx`:
-  - **U-Topia**: Web3 Entertainment, Gamification & Real-world Asset (RWA) Ecosystem
-  - **ElevenLabs**: Generative AI Voice Synthesizer (3 Thai voices per store)
-  - **Avalanche C-Chain**: High-throughput blockchain for Smart Contracts, Escrow & Micro-rewards
-  - **U-Bot**: Automated Web3 Trading & Social Community Intelligence Bot
-  - **Tokenomist**: Dynamic Tokenomics Architecture, 80/20 Burn Mechanism & Mining Emission
+  - **U-Topia**: U-Topia is built around you, bringing together digital assets, payments, and cross-chain access into one seamless, all-in-one wallet.
+  - **ElevenLabs**: Powers dynamic multilingual AI audio greetings and automated thank-you messages across 3 customizable merchant vocal personas.
+  - **Avalanche C-Chain**: Sub-second finality blockchain infrastructure on Avalanche Fuji (43113) for Proof-of-Review contracts.
+  - **u.bot**: AI assistant that can read your photos, draw images, build apps and write documents you can download.
+  - **Tokenomist**: Tokenomist Free gives you access to the essential tools for exploring token unlocks and supply schedules, tracking upcoming unlock events, project pages, and tokenomics fundamentals.
 - Preview shells for Customer Hub (`/customer`), Merchant Hub (`/owner`), and Admin Console (`/admin`).
 - Automated test suite `tests/phase1-places.test.ts` (13 tests passed: database connectivity, schema tables, places query, search filter, place by ID, platform stats).
 

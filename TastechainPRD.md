@@ -2,7 +2,7 @@
 **Project Name:** TasteChain BKK — The AI-Powered & Trustless Gastronomy Protocol  
 **Document Version:** 3.0.0 (AI Voice, In-Store QR & Dynamic Tokenomics Edition)  
 **Last Updated:** 2026-10-15  
-**Status:** Active PoC / Web3 Hackathon Specification  
+**Status:** Active PoC / U-Hackathon @ Flow Summit Bangkok 2026 Specification  
 **Platform Form Factor:** Standalone Responsive Web Application (Next.js App Router, Tailwind CSS, DaisyUI) + Web Audio API  
 **Blockchain Network:** Avalanche C-Chain — Fuji Testnet (Chain ID: 43113)  
 **Primary Token:** $TASTE (ERC-20 Protocol Utility & Reward Token) + Fuji AVAX (Escrow Gas/Native Bounties)  
@@ -21,7 +21,7 @@
 | :--- | :--- | :--- |
 | 1 | **3 Dedicated User Roles** | **(1) Customer:** ค้นหาร้าน, ให้ Review พร้อมทำ Proof of Review (2 Options), สะสมแต้มรับ $TASTE, แลก Voucher<br/>**(2) Owner:** ส่งเอกสารยืนยันสิทธิ์ความเป็นเจ้าของ (KYC/DBD), แก้ไขข้อมูลร้าน, สร้าง Shop QR Code รับรีวิว, ซื้อ Token $TASTE, ตั้งแคมเปญ Bounty<br/>**(3) Admin:** ตรวจสอบสถิติการใช้งาน (Monitor Usage), ดู Audit Logs, อนุมัติสิทธิ์ความเป็นเจ้าของร้าน (Owner Approve), สั่งแจกจ่ายเหรียญ (Manual Token Distribute สำหรับ Demo PoC ในงาน Hackathon) |
 | 2 | **Bangkok Only Scope** | Scope เฉพาะ `city = 'กรุงเทพมหานคร'` (41,581 OPERATIONAL venues, 36,369 F&B) |
-| 3 | **Proof of Review (2 Options)** | **Option 1 (Slip Proof):** GPS + รูปอาหารที่ทาน + ใบเสร็จการทานในมื้อนั้น (PromptPay Slip OCR ตรวจสอบความถูกต้องและป้องกันสลิปซ้ำ) + คะแนนรีวิวและข้อความ<br/>**Option 2 (Shop QR Proof):** GPS + รูปอาหารที่ทาน + สแกน Shop QR Code หน้าร้าน + คะแนนรีวิวและข้อความ (พร้อมเสียงทักทาย AI ขอบคุณจากร้านค้า) |
+| 3 | **Proof of Review (2 Options)** | **Option 1 (Slip Proof):** GPS + รูปอาหารที่ทาน + ใบเสร็จการทานในมื้อนั้น (Dining Receipt Slip OCR ตรวจสอบความถูกต้องและป้องกันสลิปซ้ำ) + คะแนนรีวิวและข้อความ<br/>**Option 2 (Shop QR Proof):** GPS + รูปอาหารที่ทาน + สแกน Shop QR Code หน้าร้าน + คะแนนรีวิวและข้อความ (พร้อมเสียงทักทาย AI ขอบคุณจากร้านค้า) |
 | 4 | **ElevenLabs AI Shop Voices** | ร้านค้าสร้างเสียงทักทาย/ขอบคุณลูกค้าได้สูงสุด 3 รูปแบบ (อบอุ่น, เป็นกันเอง, แนะนำเมนู) ระบบสุ่ม 1 ใน 3 ส่งให้ลูกค้าฟังทันทีเมื่อสแกน Shop QR |
 | 5 | **Dedicated Role Dashboards & Home** | แยกหน้าจอสำหรับแต่ละ User Role ชัดเจน (`/explore` สำหรับ Customer, `/owner` สำหรับ Owner, `/admin` สำหรับ Admin) พร้อมหน้า **Home Page (`/`)** และหน้า **/judge** สำหรับกรรมการ |
 | 6 | **English-First International UI** | ออกแบบหน้า Home Page, Navbar, ปุ่มกด (Buttons), Interactive Sandbox, และหน้าจอทั้งหมดเป็น **ภาษาอังกฤษ (English-First UI)** เพื่อให้กรรมการระดับนานาชาติ (International Judges) ใช้งานได้อย่างราบรื่นและเป็นมืออาชีพ (คงชื่อร้านอาหารไทยและสคริปต์เสียง AI ควบคู่) |
@@ -199,11 +199,11 @@ flowchart LR
    * ยอดแจกเหรียญ $TASTE สะสมในระบบ
    * แคมเปญ Bounty ที่กำลัง Active
 4. **5 Platform Sponsors & Partners:**
-   * **U-Topia:** Web3 Entertainment, Gamification & Real-world Asset (RWA) Ecosystem
+   * **U-Topia:** U-Topia is built around you, bringing together digital assets, payments, and cross-chain access into one seamless, all-in-one wallet.
    * **ElevenLabs:** Generative Voice AI สังเคราะห์เสียงต้อนรับและขอบคุณภาษาไทย 3 สไตล์ต่อร้าน
-   * **Avalanche C-Chain:** บล็อกเชนความเร็วสูง สำหรับ Smart Contracts, Escrow และ Micro-rewards
-   * **U-Bot:** Automated Web3 Trading & Social Community Intelligence Bot
-   * **Tokenomist:** ผู้ออกแบบกลไก Dynamic Tokenomics, 80/20 Burn และ Mining Emission
+   * **Avalanche C-Chain:** บล็อกเชนความเร็วสูง สำหรับ Smart Contracts, Escrow และ Micro-rewards (Fuji Testnet 43113)
+   * **u.bot:** u.bot is an AI assistant that can read your photos, draw images, build apps and write documents you can download.
+   * **Tokenomist:** Tokenomist Free gives you access to the essential tools for exploring token unlocks and supply schedules. Track upcoming unlock events, view project pages, and stay informed on tokenomics fundamentals, all in one place.
 
 ---
 
